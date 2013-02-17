@@ -18,9 +18,12 @@ public class CreateAlarmActivity extends ListActivity {
 	static final String[] ALARM_SETTINGS = { "Alarm Repeat", "Snooze Duration", "Game Type", "SMS Buddy" };
 	static final boolean[] ALARM_SETTINGS_ICON = { true, true, true, true };
 
-	static final String[] GAME_TYPE = { "Math Sum", "Captcha", "Shaker" };
+	static final String[] SNOOZE_DURATION = {"3 minutes", "5 minutes", "10 minutes", "15 minutes", "30 minutes"};
+ 	static final String[] GAME_TYPE = { "Math Sum", "Captcha", "Shaker" };
 
-	int gameTypeSelected = -1;
+ 	private int prevSelection = -1;
+ 	private int snoozeDurationSelected = -1;
+	private int gameTypeSelected = -1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,7 @@ public class CreateAlarmActivity extends ListActivity {
 					Toast.makeText(getApplicationContext(), "0", Toast.LENGTH_SHORT).show();
 					break;
 				case 1: // Snooze Duration
-					Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT).show();
+					buildSnoozeDurationDialog();
 					break;
 				case 2: // Game Type
 					buildGameTypeDialog();
@@ -62,8 +65,37 @@ public class CreateAlarmActivity extends ListActivity {
 			}
 		});
 	}
+	
+	private void buildSnoozeDurationDialog() {
+		prevSelection = snoozeDurationSelected;
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.dialog_title_snooze_duration);
+		builder.setNegativeButton(R.string.dialog_button_save, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
+			}
+		});
+		builder.setPositiveButton(R.string.dialog_button_cancel, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				snoozeDurationSelected = prevSelection;
+				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
+			}
+		});
+		builder.setSingleChoiceItems(SNOOZE_DURATION, snoozeDurationSelected, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int index) {
+				snoozeDurationSelected = index;
+				Toast.makeText(getApplicationContext(), SNOOZE_DURATION[index], Toast.LENGTH_SHORT).show();
+			}
+		});
+		
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
 
 	private void buildGameTypeDialog() {
+		prevSelection = gameTypeSelected;
+		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.dialog_title_game_type);
 		builder.setNegativeButton(R.string.dialog_button_save, new DialogInterface.OnClickListener() {
@@ -73,6 +105,7 @@ public class CreateAlarmActivity extends ListActivity {
 		});
 		builder.setPositiveButton(R.string.dialog_button_cancel, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
+				gameTypeSelected = prevSelection;
 				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
 			}
 		});
