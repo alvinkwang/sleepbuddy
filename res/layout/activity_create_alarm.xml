@@ -21,11 +21,21 @@
         android:textSize="16sp"
         android:typeface="sans" />
 
-    <ImageView
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:padding="10dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:typeface="sans" />
+    
+    <!-- <ImageView
         android:id="@+id/image1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true" /> -->
 
     <!--
    <LinearLayout> 

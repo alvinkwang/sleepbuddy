@@ -32,9 +32,9 @@ public final class R {
     }
     public static final class id {
         public static final int action_settings=0x7f0a0003;
-        public static final int image1=0x7f0a0002;
         public static final int layercontainer=0x7f0a0000;
         public static final int text1=0x7f0a0001;
+        public static final int text2=0x7f0a0002;
     }
     public static final class layout {
         public static final int activity_create_alarm=0x7f030000;
