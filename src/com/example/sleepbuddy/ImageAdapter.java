@@ -16,7 +16,7 @@ public class ImageAdapter extends ArrayAdapter {
 	int textId;
 	int imageId;
 
-	ImageAdapter(Activity context, int layoutId, int textId, int imageId, String[] items, boolean[] arrows) {
+	public ImageAdapter(Activity context, int layoutId, int textId, int imageId, String[] items, boolean[] arrows) {
 		super(context, layoutId, items);
 
 		this.context = context;
