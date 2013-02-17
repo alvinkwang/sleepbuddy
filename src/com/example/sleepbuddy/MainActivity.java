@@ -1,19 +1,27 @@
 package com.example.sleepbuddy;
 
-import android.app.Activity;
+import java.util.ArrayList;
+
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ListActivity {
 
 	public final static String EXTRA_MESSAGE = "MESSAGE";
+	ArrayAdapter<String> adapter;
+	ArrayList<String> listItems = new ArrayList<String>();
+//	int clickCounter=0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, listItems);
+		setListAdapter(adapter);
 	}
 
 	@Override
@@ -26,5 +34,7 @@ public class MainActivity extends Activity {
 	public void createAlarm(View view) {
 		Intent intent = new Intent(this, CreateAlarmActivity.class);
 		startActivity(intent);
+//		listItems.add("Clicked : "+clickCounter++);
+//		adapter.notifyDataSetChanged();
 	}
 }
