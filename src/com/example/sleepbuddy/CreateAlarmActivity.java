@@ -20,6 +20,8 @@ public class CreateAlarmActivity extends ListActivity {
 
 	static final String[] GAME_TYPE = { "Math Sum", "Captcha", "Shaker" };
 
+	int gameTypeSelected = -1;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,6 +76,13 @@ public class CreateAlarmActivity extends ListActivity {
 				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
 			}
 		});
+		builder.setSingleChoiceItems(GAME_TYPE, gameTypeSelected, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int index) {
+				gameTypeSelected = index;
+				Toast.makeText(getApplicationContext(), GAME_TYPE[index], Toast.LENGTH_SHORT).show();
+			}
+		});
+
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
