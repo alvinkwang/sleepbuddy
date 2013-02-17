@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 public class CreateAlarmActivity extends ListActivity {
 
 	static final String[] ALARM_SETTINGS = new String[] {"Alarm Repeat", "Snooze", "Game Type", "SMS Buddy"};
+	static final boolean[] ALARM_SETTINGS_ICON = {true, true, true, true};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,20 +23,22 @@ public class CreateAlarmActivity extends ListActivity {
 //		setContentView(R.layout.activity_create_alarm);
 		// Show the Up button in the action bar.
 		setupActionBar();
+
+		setListAdapter(new ImageAdapter(this, R.layout.activity_create_alarm, R.id.text1, R.id.image1, ALARM_SETTINGS, ALARM_SETTINGS_ICON));
 		
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_create_alarm, ALARM_SETTINGS));
-		
+//		setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_create_alarm, ALARM_SETTINGS));
+//		
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
 		
-		listView.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-			    // When clicked, show a toast with the TextView text
-			    Toast.makeText(getApplicationContext(),
-				((TextView) view).getText(), Toast.LENGTH_SHORT).show();
-			}
-		});
+//		listView.setOnItemClickListener(new OnItemClickListener() {
+//			public void onItemClick(AdapterView<?> parent, View view,
+//					int position, long id) {
+//			    // When clicked, show a toast with the TextView text
+//			    Toast.makeText(getApplicationContext(),
+//				((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+//			}
+//		});
 	}
 
 	/**
