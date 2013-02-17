@@ -34,21 +34,16 @@ public class CreateAlarmActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		setContentView(R.layout.activity_create_alarm);
+		
 		ArrayList<Map<String, String>> list = buildData();
 		String[] from = { "name", "purpose" };
 		int[] to = { android.R.id.text1, android.R.id.text2 };
 
 		SimpleAdapter adapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2, from, to);
 		setListAdapter(adapter);
-
-		// setListAdapter(new ImageAdapter(this, R.layout.activity_create_alarm,
-		// R.id.text1, R.id.image1, ALARM_SETTINGS,
-		// ALARM_SETTINGS_ICON));
-		//
+		
 		ListView listView = getListView();
-		// listView.setTextFilterEnabled(true);
-		//
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// When clicked, show a toast with the TextView text
