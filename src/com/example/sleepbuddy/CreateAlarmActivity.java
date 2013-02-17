@@ -18,6 +18,14 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+/*
+ * TODO
+ * (a) Update 2nd line of text after saving from Dialog
+ * (b) Implement Save and Cancel button
+ * (c) Implement Dialogs for Alarm Repeat
+ * (d) Implement Dialogs for SMS Buddy
+ */
+
 public class CreateAlarmActivity extends ListActivity {
 
 	static final String[] ALARM_SETTINGS = { "Alarm Repeat", "Snooze Duration", "Game Type", "SMS Buddy" };
@@ -28,8 +36,8 @@ public class CreateAlarmActivity extends ListActivity {
 	static final String[] GAME_TYPE = { "Math Sum", "Captcha", "Shaker" };
 
 	private int prevSelection = -1;
-	private int snoozeDurationSelected = -1;
-	private int gameTypeSelected = -1;
+	private int snoozeDurationSelected = 1;
+	private int gameTypeSelected = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
