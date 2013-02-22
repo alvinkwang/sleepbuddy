@@ -29,7 +29,7 @@ import android.widget.Toast;
 public class CreateAlarmActivity extends ListActivity {
 
 	static final String[] ALARM_SETTINGS = { "Alarm Repeat", "Snooze Duration", "Game Type", "SMS Buddy" };
-	static final String[] ALARM_SETTINGS_DEFAULT = {"One Off", "5 minutes", "Math Sum", "-"};
+	static final String[] ALARM_SETTINGS_DEFAULT = { "One Off", "5 minutes", "Math Sum", "-" };
 	static final boolean[] ALARM_SETTINGS_ICON = { true, true, true, true };
 
 	static final String[] SNOOZE_DURATION = { "3 minutes", "5 minutes", "10 minutes", "15 minutes", "30 minutes" };
@@ -39,16 +39,19 @@ public class CreateAlarmActivity extends ListActivity {
 	private int snoozeDurationSelected = 1;
 	private int gameTypeSelected = 0;
 
+	private ArrayList<Map<String, String>> list;
+	private SimpleAdapter adapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_alarm);
 		
-		ArrayList<Map<String, String>> list = buildData();
+		list = buildData();
 		String[] from = { "name", "purpose" };
 		int[] to = { android.R.id.text1, android.R.id.text2 };
 
-		SimpleAdapter adapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2, from, to);
+		adapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2, from, to);
 		setListAdapter(adapter);
 		
 		ListView listView = getListView();
@@ -85,6 +88,10 @@ public class CreateAlarmActivity extends ListActivity {
 		return list;
 	}
 
+	private void updateList(int index, String updateValue) {
+		this.list.set(index, putData(ALARM_SETTINGS[index], updateValue));
+	}
+
 	private HashMap<String, String> putData(String name, String purpose) {
 		HashMap<String, String> item = new HashMap<String, String>();
 		item.put("name", name);
@@ -99,6 +106,8 @@ public class CreateAlarmActivity extends ListActivity {
 		builder.setTitle(R.string.dialog_title_snooze_duration);
 		builder.setNegativeButton(R.string.dialog_button_save, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
+				updateList(1, SNOOZE_DURATION[snoozeDurationSelected]);
+				adapter.notifyDataSetChanged();
 				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -126,6 +135,8 @@ public class CreateAlarmActivity extends ListActivity {
 		builder.setTitle(R.string.dialog_title_game_type);
 		builder.setNegativeButton(R.string.dialog_button_save, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
+				updateList(2, GAME_TYPE[gameTypeSelected]);
+				adapter.notifyDataSetChanged();
 				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
 			}
 		});
