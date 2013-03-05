@@ -6,6 +6,7 @@ import java.util.Map;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -55,7 +56,7 @@ public class CreateAlarmActivity extends ListActivity {
 		
 		//create timepicker
 		TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
-
+		
 		list = buildData();
 		String[] from = { "name", "purpose" };
 		int[] to = { android.R.id.text1, android.R.id.text2 };
@@ -89,7 +90,7 @@ public class CreateAlarmActivity extends ListActivity {
 			}
 		});// end setOnItemClickListener
 	}
-
+	
 	private ArrayList<Map<String, String>> buildData() {
 		ArrayList<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		for (int i = 0; i < ALARM_SETTINGS.length; i++) {
