@@ -6,15 +6,16 @@ import java.util.Map;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TimePicker;
@@ -26,7 +27,7 @@ import android.widget.Toast;
  * (c) Implement Dialogs for Alarm Repeat
  * (d) Implement Dialogs for SMS Buddy
  * (e) Currently hardcoded buddy list. MAX SIZE == 5!
- * (f) Cancel button of SMS Buddy not working
+ * 
  */
 
 public class CreateAlarmActivity extends ListActivity {
@@ -54,8 +55,9 @@ public class CreateAlarmActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_alarm);
 		
-		//create timepicker
 		TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
+		addSaveButton();
+		addCancelButton();
 		
 		list = buildData();
 		String[] from = { "name", "purpose" };
@@ -89,6 +91,28 @@ public class CreateAlarmActivity extends ListActivity {
 				}
 			}
 		});// end setOnItemClickListener
+	}
+	
+	private void addSaveButton() {
+		Button saveButton = (Button) findViewById(R.id.saveAlarmBtn);
+		saveButton.setOnClickListener(new OnClickListener() {
+			 
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getApplicationContext(), "save", Toast.LENGTH_SHORT).show();
+			}
+		});
+	}
+	
+	private void addCancelButton() {
+		Button cancelButton = (Button) findViewById(R.id.cancelAlarmBtn);
+		cancelButton.setOnClickListener(new OnClickListener() {
+			 
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 	}
 	
 	private ArrayList<Map<String, String>> buildData() {
