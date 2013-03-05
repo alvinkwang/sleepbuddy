@@ -24,8 +24,6 @@ import android.widget.Toast;
 /*
  * TODO
  * (b) Implement Save and Cancel button
- * (c) Implement Dialogs for Alarm Repeat
- * (d) Implement Dialogs for SMS Buddy
  * (e) Currently hardcoded buddy list. MAX SIZE == 5!
  * 
  */
@@ -36,12 +34,13 @@ public class CreateAlarmActivity extends ListActivity {
 	static final String[] ALARM_SETTINGS_DEFAULT = { "One Off", "5 minutes", "Math Sum", "-" };
 	static final boolean[] ALARM_SETTINGS_ICON = { true, true, true, true };
 	
-
+	static final String[] REPEAT = {"One Off", "Repeat"};
 	static final String[] SNOOZE_DURATION = { "3 minutes", "5 minutes", "10 minutes", "15 minutes", "30 minutes" };
 	static final String[] GAME_TYPE = { "Math Sum", "Captcha", "Shaker" };
 	static final String[] BUDDY_LIST = { "SPIDERMAN", "BATMAN", "SUPERMAN", "CATWOMEN", "Thor"};
 	
 	private int prevSelection = -1;
+	private int repeatSelected = 0;
 	private int snoozeDurationSelected = 1;
 	private int gameTypeSelected = 0;
 	private ArrayList<Integer> selectedBuddies = new ArrayList<Integer>();
@@ -99,7 +98,9 @@ public class CreateAlarmActivity extends ListActivity {
 			 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(), "save", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), SNOOZE_DURATION[snoozeDurationSelected] + GAME_TYPE[gameTypeSelected], Toast.LENGTH_SHORT).show();
+				//FIXME: alarm repeat currently set to false
+				Alarm alarm = new Alarm(false, SNOOZE_DURATION[snoozeDurationSelected], GAME_TYPE[gameTypeSelected], BUDDY_LIST);
 			}
 		});
 	}
@@ -135,7 +136,32 @@ public class CreateAlarmActivity extends ListActivity {
 	}
 
 	private void buildAlarmRepeatDialog() {
+		prevSelection = repeatSelected;
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.dialog_title_alarm_repeat);
+		builder.setNegativeButton(R.string.dialog_button_save, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				updateList(0, REPEAT[repeatSelected]);
+				adapter.notifyDataSetChanged();
+				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
+			}
+		});
+		builder.setPositiveButton(R.string.dialog_button_cancel, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				repeatSelected = prevSelection;
+				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
+			}
+		});
+		builder.setSingleChoiceItems(REPEAT, repeatSelected, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int index) {
+				repeatSelected = index;
+				Toast.makeText(getApplicationContext(), REPEAT[index], Toast.LENGTH_SHORT).show();
+			}
+		});
 
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 
 	private void buildSnoozeDurationDialog() {
