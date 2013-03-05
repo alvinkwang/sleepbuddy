@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 /*
@@ -51,6 +52,9 @@ public class CreateAlarmActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_alarm);
+		
+		//create timepicker
+		TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
 
 		list = buildData();
 		String[] from = { "name", "purpose" };

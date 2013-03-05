@@ -2,11 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layercontainer"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:background="#ffffff"
     android:orientation="horizontal" >
 
-    <LinearLayout
+    
+	<TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerHorizontal="true" 
+        android:padding="5dp" />
+	
+	<LinearLayout
         android:id="@+id/footer"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -23,12 +32,15 @@
             android:layout_height="wrap_content"
             android:text="@string/dialog_button_cancel" />
     </LinearLayout>
-
+	
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timePicker"
         android:layout_above="@id/footer"
         android:drawSelectorOnTop="false" />
 
+    
+    
 </RelativeLayout>
