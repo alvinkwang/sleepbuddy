@@ -2,6 +2,7 @@ package com.example.sleepbuddy;
 
 public class Alarm {
 
+	private boolean isActive;
 	private int hour;
 	private int min;
 	private String repeat;
@@ -10,6 +11,7 @@ public class Alarm {
 	private String[] smsBuddy;
 	
 	public Alarm(int hour, int min, String repeat, String snoozeDuration, String gameType, String[] smsList) {
+		this.isActive = true; 
 		this.hour = hour;
 		this.min = min;
 		this.repeat = repeat;
@@ -29,6 +31,14 @@ public class Alarm {
 		return Integer.parseInt(value);
 	}
 	
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
 	public int getHour() {
 		return hour;
 	}

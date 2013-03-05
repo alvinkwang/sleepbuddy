@@ -1,13 +1,16 @@
 package com.example.sleepbuddy;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.app.TimePickerDialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -34,19 +37,19 @@ public class CreateAlarmActivity extends ListActivity {
 	static final String[] ALARM_SETTINGS = { "Alarm Repeat", "Snooze Duration", "Game Type", "SMS Buddy" };
 	static final String[] ALARM_SETTINGS_DEFAULT = { "One Off", "5 minutes", "Math Sum", "-" };
 	static final boolean[] ALARM_SETTINGS_ICON = { true, true, true, true };
-	
-	static final String[] REPEAT = {"One Off", "Repeat"};
+
+	static final String[] REPEAT = { "One Off", "Repeat" };
 	static final String[] SNOOZE_DURATION = { "3 minutes", "5 minutes", "10 minutes", "15 minutes", "30 minutes" };
 	static final String[] GAME_TYPE = { "Math Sum", "Captcha", "Shaker" };
-	static final String[] BUDDY_LIST = { "SPIDERMAN", "BATMAN", "SUPERMAN", "CATWOMEN", "Thor"};
-	
+	static final String[] BUDDY_LIST = { "SPIDERMAN", "BATMAN", "SUPERMAN", "CATWOMEN", "Thor" };
+
 	private int prevSelection = -1;
 	private int repeatSelected = 0;
 	private int snoozeDurationSelected = 1;
 	private int gameTypeSelected = 0;
 	private ArrayList<Integer> selectedBuddies = new ArrayList<Integer>();
-	private boolean[] selectedBuddiesBoolean = {false, false, false, false, false};
- 
+	private boolean[] selectedBuddiesBoolean = { false, false, false, false, false };
+
 	private ArrayList<Map<String, String>> list;
 	private SimpleAdapter adapter;
 	private TimePicker timePicker;
@@ -57,11 +60,11 @@ public class CreateAlarmActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_alarm);
-		
+
 		addTimePicker();
 		addSaveButton();
 		addCancelButton();
-		
+
 		list = buildData();
 		String[] from = { "name", "purpose" };
 		int[] to = { android.R.id.text1, android.R.id.text2 };
@@ -94,44 +97,53 @@ public class CreateAlarmActivity extends ListActivity {
 			}
 		});// end setOnItemClickListener
 	}
-	
+
 	private void addTimePicker() {
 		timePicker = (TimePicker) findViewById(R.id.timePicker);
 		timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-			
+
 			public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
 				hour = hourOfDay;
 				min = minute;
 			}
 		});
 	}
-	
+
 	private void addSaveButton() {
 		Button saveButton = (Button) findViewById(R.id.saveAlarmBtn);
 		saveButton.setOnClickListener(new OnClickListener() {
-			 
+
 			@Override
 			public void onClick(View v) {
-				
-				Alarm alarm = new Alarm(hour, min, REPEAT[repeatSelected], 
-						SNOOZE_DURATION[snoozeDurationSelected], GAME_TYPE[gameTypeSelected], BUDDY_LIST);
-				
-//				Toast.makeText(getApplicationContext(), hour + "|" + min, Toast.LENGTH_SHORT).show();
+
+				Intent intent = new Intent(CreateAlarmActivity.this, AlarmService.class);
+				PendingIntent pendingIntent = PendingIntent.getService(CreateAlarmActivity.this, 0, intent, 0);
+
+				AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTimeInMillis(System.currentTimeMillis());
+				calendar.add(Calendar.SECOND, 10);
+				alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+//				Alarm alarm = new Alarm(hour, min, REPEAT[repeatSelected], SNOOZE_DURATION[snoozeDurationSelected],
+//						GAME_TYPE[gameTypeSelected], BUDDY_LIST);
+
+				Toast.makeText(getApplicationContext(), hour + "|" + min, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
-	
+
 	private void addCancelButton() {
 		Button cancelButton = (Button) findViewById(R.id.cancelAlarmBtn);
 		cancelButton.setOnClickListener(new OnClickListener() {
-			 
+
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
 	}
-	
+
 	private ArrayList<Map<String, String>> buildData() {
 		ArrayList<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		for (int i = 0; i < ALARM_SETTINGS.length; i++) {
@@ -153,7 +165,7 @@ public class CreateAlarmActivity extends ListActivity {
 
 	private void buildAlarmRepeatDialog() {
 		prevSelection = repeatSelected;
-		
+
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.dialog_title_alarm_repeat);
 		builder.setNegativeButton(R.string.dialog_button_save, new DialogInterface.OnClickListener() {
@@ -249,30 +261,33 @@ public class CreateAlarmActivity extends ListActivity {
 			public void onClick(DialogInterface dialog, int id) {
 				selectedBuddies = tempBuddyList;
 				selectedBuddiesBoolean = tempBuddySelected;
-//				adapter.notifyDataSetChanged();
+				// adapter.notifyDataSetChanged();
 				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
 			}
 		});
 		builder.setPositiveButton(R.string.dialog_button_cancel, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
-				Toast.makeText(getApplicationContext(), "Cancel" , Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
 			}
 		});
-		builder.setMultiChoiceItems(BUDDY_LIST, selectedBuddiesBoolean, new DialogInterface.OnMultiChoiceClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-				if (isChecked) {
-					// If the user checked the item, add it to the selected
-					// items
-					tempBuddyList.add(which);
-					tempBuddySelected[which] = true;
-				} else if (selectedBuddies.contains(which)) {
-					// Else, if the item is already in the array, remove it
-					tempBuddyList.remove(Integer.valueOf(which));
-					tempBuddySelected[which] = false;
-				}
-			}
-		});
+		builder.setMultiChoiceItems(BUDDY_LIST, selectedBuddiesBoolean,
+				new DialogInterface.OnMultiChoiceClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+						if (isChecked) {
+							// If the user checked the item, add it to the
+							// selected
+							// items
+							tempBuddyList.add(which);
+							tempBuddySelected[which] = true;
+						} else if (selectedBuddies.contains(which)) {
+							// Else, if the item is already in the array, remove
+							// it
+							tempBuddyList.remove(Integer.valueOf(which));
+							tempBuddySelected[which] = false;
+						}
+					}
+				});
 
 		AlertDialog dialog = builder.create();
 		dialog.show();
