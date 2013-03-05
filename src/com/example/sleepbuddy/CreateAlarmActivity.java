@@ -6,6 +6,7 @@ import java.util.Map;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -48,13 +49,16 @@ public class CreateAlarmActivity extends ListActivity {
  
 	private ArrayList<Map<String, String>> list;
 	private SimpleAdapter adapter;
+	private TimePicker timePicker;
+	private int hour;
+	private int min;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_alarm);
 		
-		TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
+		addTimePicker();
 		addSaveButton();
 		addCancelButton();
 		
@@ -72,7 +76,6 @@ public class CreateAlarmActivity extends ListActivity {
 				switch (position) {
 
 				case 0: // Alarm Repeat
-					Toast.makeText(getApplicationContext(), "0", Toast.LENGTH_SHORT).show();
 					buildAlarmRepeatDialog();
 					break;
 				case 1: // Snooze Duration
@@ -92,15 +95,28 @@ public class CreateAlarmActivity extends ListActivity {
 		});// end setOnItemClickListener
 	}
 	
+	private void addTimePicker() {
+		timePicker = (TimePicker) findViewById(R.id.timePicker);
+		timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+			
+			public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+				hour = hourOfDay;
+				min = minute;
+			}
+		});
+	}
+	
 	private void addSaveButton() {
 		Button saveButton = (Button) findViewById(R.id.saveAlarmBtn);
 		saveButton.setOnClickListener(new OnClickListener() {
 			 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(), SNOOZE_DURATION[snoozeDurationSelected] + GAME_TYPE[gameTypeSelected], Toast.LENGTH_SHORT).show();
-				//FIXME: alarm repeat currently set to false
-				Alarm alarm = new Alarm(false, SNOOZE_DURATION[snoozeDurationSelected], GAME_TYPE[gameTypeSelected], BUDDY_LIST);
+				
+				Alarm alarm = new Alarm(hour, min, REPEAT[repeatSelected], 
+						SNOOZE_DURATION[snoozeDurationSelected], GAME_TYPE[gameTypeSelected], BUDDY_LIST);
+				
+//				Toast.makeText(getApplicationContext(), hour + "|" + min, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

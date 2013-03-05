@@ -4,12 +4,14 @@ public class Alarm {
 
 	private int hour;
 	private int min;
-	private boolean repeat;
+	private String repeat;
 	private int snoozeDuration;
 	private String gameType;
 	private String[] smsBuddy;
 	
-	public Alarm(boolean repeat, String snoozeDuration, String gameType, String[] smsList) {
+	public Alarm(int hour, int min, String repeat, String snoozeDuration, String gameType, String[] smsList) {
+		this.hour = hour;
+		this.min = min;
 		this.repeat = repeat;
 		this.snoozeDuration = extractSnoozeDuration(snoozeDuration);
 		this.gameType = gameType;
@@ -26,12 +28,28 @@ public class Alarm {
 		String value = snoozeAmt.substring(0, snoozeAmt.indexOf(' '));
 		return Integer.parseInt(value);
 	}
+	
+	public int getHour() {
+		return hour;
+	}
 
-	public boolean isRepeat() {
+	public void setHour(int hour) {
+		this.hour = hour;
+	}
+
+	public int getMin() {
+		return min;
+	}
+
+	public void setMin(int min) {
+		this.min = min;
+	}
+
+	public String getRepeat() {
 		return repeat;
 	}
 
-	public void setRepeat(boolean repeat) {
+	public void setRepeat(String repeat) {
 		this.repeat = repeat;
 	}
 
