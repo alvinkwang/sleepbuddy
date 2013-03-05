@@ -122,13 +122,14 @@ public class CreateAlarmActivity extends ListActivity {
 				AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTimeInMillis(System.currentTimeMillis());
-				calendar.add(Calendar.SECOND, 10);
+				calendar.add(Calendar.SECOND, 3);
 				alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
 //				Alarm alarm = new Alarm(hour, min, REPEAT[repeatSelected], SNOOZE_DURATION[snoozeDurationSelected],
 //						GAME_TYPE[gameTypeSelected], BUDDY_LIST);
 
 				Toast.makeText(getApplicationContext(), hour + "|" + min, Toast.LENGTH_SHORT).show();
+				finish();
 			}
 		});
 	}

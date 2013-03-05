@@ -10,8 +10,10 @@ public class AlarmService extends Service {
 	@Override
 	public void onCreate() {
 
-		// TODO Auto-generated method stub
 		Toast.makeText(this, "MyAlarmService.onCreate()", Toast.LENGTH_LONG).show();
+//		Intent dialogIntent = new Intent(getBaseContext(), AlarmActivity.class);
+//		dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//		getApplication().startActivity(dialogIntent);
 	}
 
 	@Override
@@ -36,8 +38,9 @@ public class AlarmService extends Service {
 	public void onStart(Intent intent, int startId) {
 
 		// TODO Auto-generated method stub
-		super.onStart(intent, startId);
-		Toast.makeText(this, "MyAlarmService.onStart()", Toast.LENGTH_LONG).show();
+		Intent dialogIntent = new Intent(getBaseContext(), AlarmActivity.class);
+		dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		getApplication().startActivity(dialogIntent);
 
 	}
 

@@ -5,7 +5,6 @@
     android:layout_height="fill_parent"
     android:background="#ffffff"
     android:orientation="horizontal" >
-
     
 	<TimePicker
         android:id="@+id/timePicker"
@@ -45,7 +44,5 @@
         android:layout_below="@id/timePicker"
         android:layout_above="@id/footer"
         android:drawSelectorOnTop="false" />
-
-    
     
 </RelativeLayout>
