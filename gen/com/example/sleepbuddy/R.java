@@ -37,12 +37,12 @@ public final class R {
         public static final int button1=0x7f0b0007;
         public static final int cancelAlarmBtn=0x7f0b0004;
         public static final int createAlarmBtn=0x7f0b0005;
-        public static final int editText1=0x7f0b0008;
         public static final int footer=0x7f0b0002;
         public static final int layercontainer=0x7f0b0000;
+        public static final int mathSolution=0x7f0b0008;
+        public static final int mathSum=0x7f0b0009;
         public static final int saveAlarmBtn=0x7f0b0003;
         public static final int textView1=0x7f0b0006;
-        public static final int textView2=0x7f0b0009;
         public static final int timePicker=0x7f0b0001;
     }
     public static final class layout {

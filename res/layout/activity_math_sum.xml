@@ -26,14 +26,14 @@
         android:text="@string/mathsum_solve" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/mathSolution"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignBaseline="@+id/mathSum"
+        android:layout_alignBottom="@+id/mathSum"
         android:layout_alignRight="@+id/button1"
         android:layout_marginLeft="37dp"
-        android:layout_toRightOf="@+id/textView2"
+        android:layout_toRightOf="@+id/mathSum"
         android:ems="10"
         android:inputType="number" >
 
@@ -41,13 +41,12 @@
     </EditText>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/mathSum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="21dp"
         android:layout_toRightOf="@+id/textView1"
-        android:text="9 * 8 ="
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
