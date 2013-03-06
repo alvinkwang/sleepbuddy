@@ -20,5 +20,7 @@
     <string name="dialog_button_dismiss">Dismiss</string>
     <string name="dialog_button_snooze">Snooze</string>
     <string name="title_activity_math_sum">MathSumActivity</string>
+    <string name="mathsum_calculate">Calculate:</string>
+    <string name="mathsum_solve">Solve!</string>
 
 </resources>

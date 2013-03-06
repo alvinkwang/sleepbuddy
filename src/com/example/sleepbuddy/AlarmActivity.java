@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class AlarmActivity extends Activity {
 
-	private MediaPlayer mediaPlayer;
+	private static MediaPlayer mediaPlayer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class AlarmActivity extends Activity {
 
 	private void playAlarm() {
 		mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.alarm_siren);
-		 mediaPlayer.setLooping(true);
+		mediaPlayer.setLooping(true);
 		mediaPlayer.start();
 	}
 
@@ -45,7 +45,7 @@ public class AlarmActivity extends Activity {
 				// User clicked DISMISS button
 				Toast.makeText(getApplicationContext(), "DISMISS", Toast.LENGTH_SHORT).show();
 				displaySelectedGame();
-				mediaPlayer.stop();
+//				mediaPlayer.stop();
 			}
 		});
 		builder.setNegativeButton(R.string.dialog_button_snooze, new DialogInterface.OnClickListener() {
@@ -80,4 +80,8 @@ public class AlarmActivity extends Activity {
 		return true;
 	}
 
+	public static MediaPlayer getMediaPlayer() {
+		return mediaPlayer;
+	}
+	
 }
