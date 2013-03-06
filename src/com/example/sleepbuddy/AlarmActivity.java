@@ -1,16 +1,20 @@
 package com.example.sleepbuddy;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.Toast;
 
 public class AlarmActivity extends Activity {
 
@@ -49,12 +53,47 @@ public class AlarmActivity extends Activity {
 		builder.setNegativeButton(R.string.dialog_button_snooze, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				// User clicked SNOOZE button
+
+				// FIXME: Retrieve snoozeDuration based on alarm created
+				snooze(3);
 				mediaPlayer.stop();
 			}
 		});
 
 		AlertDialog dialog = builder.create();
 		dialog.show();
+	}
+
+	private void snooze(int snoozeDurationSeconds) {
+		int snoozeCnt = 0;
+		// Extract information from bundle
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			snoozeCnt = extras.getInt("snooze");
+		}
+
+		if (snoozeCnt < 3) {
+			Intent intent = new Intent(AlarmActivity.this, AlarmService.class);
+			PendingIntent pendingIntent = PendingIntent.getService(AlarmActivity.this, 0, intent, 0);
+			
+//			Toast.makeText(getApplicationContext(), snoozeCnt, Toast.LENGTH_SHORT).show();
+
+			int newSnoozeCnt = snoozeCnt++;
+			// Pass SnoozeCount to next Intent
+			intent.putExtra("snooze", newSnoozeCnt);
+
+//			Toast.makeText(getApplicationContext(), newSnoozeCnt, Toast.LENGTH_SHORT).show();
+			
+			AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTimeInMillis(System.currentTimeMillis());
+			calendar.add(Calendar.SECOND, snoozeDurationSeconds);
+			alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+		} else { // sends SMS message
+			Toast.makeText(getApplicationContext(), "STOP SNOOZING!", Toast.LENGTH_SHORT).show();
+		}
+		finish();
 	}
 
 	private void displaySelectedGame() {
@@ -88,6 +127,10 @@ public class AlarmActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.alarm, menu);
 		return true;
+	}
+	
+	@Override
+	public void onBackPressed() {
 	}
 
 	public static MediaPlayer getMediaPlayer() {
