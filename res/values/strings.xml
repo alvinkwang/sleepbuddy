@@ -16,6 +16,7 @@
     <string name="dialog_title_game_type">Game Type</string>
     <string name="dialog_title_sms_buddy">SMS Buddy</string>
     <string name="title_activity_alarm">AlarmActivity</string>
+	<string name="dialog_title_alarm">Alarm</string>
     <string name="dialog_button_dismiss">Dismiss</string>
     <string name="dialog_button_snooze">Snooze</string>
 
