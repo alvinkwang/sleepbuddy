@@ -9,11 +9,7 @@ public class AlarmService extends Service {
 
 	@Override
 	public void onCreate() {
-
-		Toast.makeText(this, "MyAlarmService.onCreate()", Toast.LENGTH_LONG).show();
-//		Intent dialogIntent = new Intent(getBaseContext(), AlarmActivity.class);
-//		dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//		getApplication().startActivity(dialogIntent);
+//		Toast.makeText(this, "MyAlarmService.onCreate()", Toast.LENGTH_LONG).show();
 	}
 
 	@Override

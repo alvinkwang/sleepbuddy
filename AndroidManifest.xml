@@ -39,6 +39,10 @@
             android:name="com.example.sleepbuddy.AlarmActivity"
             android:label="@string/title_activity_alarm" >
         </activity>
+        <activity
+            android:name="com.example.sleepbuddy.MathSumActivity"
+            android:label="@string/title_activity_math_sum" >
+        </activity>
     </application>
 
 </manifest>

@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 
 public class MainActivity extends ListActivity {
 
+	public static ArrayList<Alarm> alarmList = new ArrayList<Alarm>();
+	
 	public final static String EXTRA_MESSAGE = "MESSAGE";
 	ArrayAdapter<String> adapter;
 	ArrayList<String> listItems = new ArrayList<String>();
@@ -36,5 +38,9 @@ public class MainActivity extends ListActivity {
 		startActivity(intent);
 //		listItems.add("Clicked : "+clickCounter++);
 //		adapter.notifyDataSetChanged();
+	}
+
+	public static ArrayList<Alarm> getAlarmList() {
+		return alarmList;
 	}
 }

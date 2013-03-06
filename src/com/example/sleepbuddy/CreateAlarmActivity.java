@@ -120,13 +120,15 @@ public class CreateAlarmActivity extends ListActivity {
 				PendingIntent pendingIntent = PendingIntent.getService(CreateAlarmActivity.this, 0, intent, 0);
 
 				AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+				//FIXME: To set alarm to trigger at time defined by user
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTimeInMillis(System.currentTimeMillis());
 				calendar.add(Calendar.SECOND, 3);
 				alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
-//				Alarm alarm = new Alarm(hour, min, REPEAT[repeatSelected], SNOOZE_DURATION[snoozeDurationSelected],
-//						GAME_TYPE[gameTypeSelected], BUDDY_LIST);
+				Alarm alarm = new Alarm(hour, min, REPEAT[repeatSelected], SNOOZE_DURATION[snoozeDurationSelected],
+						GAME_TYPE[gameTypeSelected], BUDDY_LIST);
+				MainActivity.getAlarmList().add(alarm);
 
 				Toast.makeText(getApplicationContext(), hour + "|" + min, Toast.LENGTH_SHORT).show();
 				finish();

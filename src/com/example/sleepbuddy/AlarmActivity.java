@@ -7,6 +7,7 @@ import java.util.Locale;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
@@ -41,20 +42,35 @@ public class AlarmActivity extends Activity {
 		builder.setMessage(currentDateandTime);
 		builder.setPositiveButton(R.string.dialog_button_dismiss, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
-				// User clicked OK button
+				// User clicked DISMISS button
 				Toast.makeText(getApplicationContext(), "DISMISS", Toast.LENGTH_SHORT).show();
+				displaySelectedGame();
 				mediaPlayer.stop();
 			}
 		});
 		builder.setNegativeButton(R.string.dialog_button_snooze, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
-				// User cancelled the dialog
+				// User clicked SNOOZE button
 				mediaPlayer.stop();
 			}
 		});
 
 		AlertDialog dialog = builder.create();
 		dialog.show();
+	}
+	
+	private void displaySelectedGame() {
+		//FIXME: Retrieve game type from alarm class
+		int gameType = 0;
+		Intent intent;
+		switch (gameType) {
+		case 0: 
+			intent = new Intent(this, MathSumActivity.class);
+			startActivity(intent);
+			break;
+		}
+		
+			
 	}
 
 	@Override
