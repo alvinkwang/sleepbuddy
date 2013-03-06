@@ -11,10 +11,10 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.Toast;
 
 public class AlarmActivity extends Activity {
 
+	private static final int RESULT_MATH_SUM = 1;
 	private static MediaPlayer mediaPlayer;
 
 	@Override
@@ -43,9 +43,7 @@ public class AlarmActivity extends Activity {
 		builder.setPositiveButton(R.string.dialog_button_dismiss, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				// User clicked DISMISS button
-				Toast.makeText(getApplicationContext(), "DISMISS", Toast.LENGTH_SHORT).show();
 				displaySelectedGame();
-//				mediaPlayer.stop();
 			}
 		});
 		builder.setNegativeButton(R.string.dialog_button_snooze, new DialogInterface.OnClickListener() {
@@ -58,19 +56,31 @@ public class AlarmActivity extends Activity {
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
-	
+
 	private void displaySelectedGame() {
-		//FIXME: Retrieve game type from alarm class
+		// FIXME: Retrieve game type from alarm class
 		int gameType = 0;
 		Intent intent;
 		switch (gameType) {
-		case 0: 
+		case 0:
 			intent = new Intent(this, MathSumActivity.class);
-			startActivity(intent);
+			startActivityForResult(intent, RESULT_MATH_SUM);
 			break;
 		}
-		
-			
+
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case (RESULT_MATH_SUM): {
+			if (resultCode == Activity.RESULT_OK) {
+				finish();
+			}
+			break;
+		}
+		}
 	}
 
 	@Override
@@ -83,5 +93,5 @@ public class AlarmActivity extends Activity {
 	public static MediaPlayer getMediaPlayer() {
 		return mediaPlayer;
 	}
-	
+
 }

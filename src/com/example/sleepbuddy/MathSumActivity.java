@@ -6,7 +6,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,13 +23,10 @@ public class MathSumActivity extends Activity {
 		setContentView(R.layout.activity_math_sum);
 
 		generateMathSum(0);
-
-		Button button = (Button) findViewById(R.id.button1);
 		TextView qnField = (TextView) findViewById(R.id.mathSum);
 		qnField.setText(displayQn);
 
 		solutionField = (EditText) findViewById(R.id.mathSolution);
-
 	}
 
 	public void stopAlarm(View view) {
@@ -39,11 +35,16 @@ public class MathSumActivity extends Activity {
 			if (mp.isPlaying()) {
 				AlarmActivity.getMediaPlayer().stop();
 			}
+			Intent resultIntent = new Intent();
+			setResult(Activity.RESULT_OK, resultIntent);
 			finish();
+
 			Intent intent = new Intent(Intent.ACTION_MAIN);
 			intent.addCategory(Intent.CATEGORY_HOME);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
+			
+			Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
 		} else {
 			Toast.makeText(getApplicationContext(), "Incorrect Answer.", Toast.LENGTH_SHORT).show();
 		}
