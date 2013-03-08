@@ -66,29 +66,19 @@ public class AlarmActivity extends Activity {
 
 	private void snooze(int snoozeDurationSeconds) {
 		int snoozeCnt = 0;
-		int hello;
 		// Extract information from bundle
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			snoozeCnt = extras.getInt("snooze");
-			hello = extras.getInt("hello");
-			Toast.makeText(getApplicationContext(), "hello?? "+hello, Toast.LENGTH_SHORT).show();
+			snoozeCnt = extras.getInt("sleeper");
 		}
-		
 
 		if (snoozeCnt < 3) {
-			Intent intent = new Intent(AlarmActivity.this, AlarmService.class);
-			
-			int newSnoozeCnt = snoozeCnt+ 1;
-			// Pass SnoozeCount to next Intent
-			intent.putExtra("wow", newSnoozeCnt);
-			intent.putExtra("wata", 35);
+			Intent intent = new Intent(AlarmActivity.this, SnoozeService.class);
 
+			int newSnoozeCnt = snoozeCnt + 1;
+			intent.putExtra("sleep", newSnoozeCnt);
 			PendingIntent pendingIntent = PendingIntent.getService(AlarmActivity.this, 0, intent, 0);
-			
-			
-//			Toast.makeText(getApplicationContext(), "Pass: WOW="+newSnoozeCnt, Toast.LENGTH_SHORT).show();
-			
+
 			AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTimeInMillis(System.currentTimeMillis());
@@ -102,9 +92,9 @@ public class AlarmActivity extends Activity {
 	}
 
 	private void sendSMS() {
-		
+		Toast.makeText(getApplicationContext(), "SMS Sent!", Toast.LENGTH_SHORT).show();
 	}
-	
+
 	private void displaySelectedGame() {
 		// FIXME: Retrieve game type from alarm class
 		int gameType = 0;
@@ -137,7 +127,7 @@ public class AlarmActivity extends Activity {
 		getMenuInflater().inflate(R.menu.alarm, menu);
 		return true;
 	}
-	
+
 	public static MediaPlayer getMediaPlayer() {
 		return mediaPlayer;
 	}
