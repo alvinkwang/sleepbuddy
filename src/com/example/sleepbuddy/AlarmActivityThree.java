@@ -26,6 +26,7 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alarm_activity_three);
 		Toast.makeText(getApplicationContext(), "AlarmActivityThree", Toast.LENGTH_SHORT).show();
+		
 		// Extract values from Bundle
 		Bundle b = this.getIntent().getExtras();
 		if (b != null) {

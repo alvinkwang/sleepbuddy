@@ -21,21 +21,25 @@ public class AlarmActivity extends Activity {
 	private static final int RESULT_MATH_SUM = 1;
 	private static final int RESULT_STRING_MATCH = 2;
 	private static MediaPlayer mediaPlayer;
+	private Bundle b;
+	private int gameType;
+	private int snoozeDuration;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alarm);
 		Toast.makeText(getApplicationContext(), "AlarmActivity", Toast.LENGTH_SHORT).show();
+
 		// Extract values from Bundle
-		int gameType = 0;
-		Bundle b = this.getIntent().getExtras();
+		b = this.getIntent().getExtras();
 		if (b != null) {
 			gameType = b.getInt("game");
+			snoozeDuration = b.getInt("snooze");
 		}
 
 		playAlarm();
-		createAlertDialog(gameType);
+		createAlertDialog();
 
 	}
 
@@ -45,7 +49,7 @@ public class AlarmActivity extends Activity {
 		mediaPlayer.start();
 	}
 
-	private void createAlertDialog(final int gameType) {
+	private void createAlertDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		SimpleDateFormat sdf = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
 		String currentDateandTime = sdf.format(new Date());
@@ -63,7 +67,7 @@ public class AlarmActivity extends Activity {
 				// User clicked SNOOZE button
 
 				// FIXME: Retrieve snoozeDuration based on alarm created
-				snooze(3);
+				snooze(snoozeDuration);
 				mediaPlayer.stop();
 			}
 		});
@@ -73,34 +77,18 @@ public class AlarmActivity extends Activity {
 	}
 
 	private void snooze(int snoozeDurationSeconds) {
-		int snoozeCnt = 0;
-		// // Extract information from bundle
-		// Bundle extras = getIntent().getExtras();
-		// if (extras != null) {
-		// snoozeCnt = extras.getInt("sleeper");
-//		Toast.makeText(getApplicationContext(), "sleeper: " + snoozeCnt, Toast.LENGTH_SHORT).show();
-		// }
-		//
-//		if (snoozeCnt < 3) {
-			Intent intent = new Intent(AlarmActivity.this, SnoozeService.class);
+		Intent intent = new Intent(AlarmActivity.this, SnoozeService.class);
+		intent.putExtras(b);
+		PendingIntent pendingIntent = PendingIntent.getService(AlarmActivity.this, 0, intent, 0);
 
-			int newSnoozeCnt = snoozeCnt + 1;
-			intent.putExtra("sleep", newSnoozeCnt);
-			PendingIntent pendingIntent = PendingIntent.getService(AlarmActivity.this, 0, intent, 0);
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		calendar.add(Calendar.SECOND, snoozeDurationSeconds);
+		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
-			AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTimeInMillis(System.currentTimeMillis());
-			calendar.add(Calendar.SECOND, snoozeDurationSeconds);
-			alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
-//		} else { // sends SMS message
-//			sendSMS();
-//		}
 		finish();
 	}
-
-	
 
 	private void displaySelectedGame(int gameType) {
 		Intent intent;

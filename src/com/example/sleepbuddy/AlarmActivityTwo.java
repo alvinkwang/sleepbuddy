@@ -5,15 +5,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnPreparedListener;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnPreparedListener;
+import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Toast;
 
@@ -22,7 +22,9 @@ public class AlarmActivityTwo extends Activity implements OnPreparedListener {
 	private static final int RESULT_MATH_SUM = 1;
 	private static final int RESULT_STRING_MATCH = 2;
 	private MediaPlayer mp;
+	private Bundle b;
 	private int gameType;
+	private int snoozeDuration;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +32,10 @@ public class AlarmActivityTwo extends Activity implements OnPreparedListener {
 		setContentView(R.layout.activity_alarm_activity_two);
 		Toast.makeText(getApplicationContext(), "AlarmActivityTwo", Toast.LENGTH_SHORT).show();
 		// Extract values from Bundle
-		Bundle b = this.getIntent().getExtras();
+		b = this.getIntent().getExtras();
 		if (b != null) {
 			gameType = b.getInt("game");
+			snoozeDuration = b.getInt("snooze");
 		}
 
 		mp = AlarmActivity.getMediaPlayer();
@@ -67,7 +70,7 @@ public class AlarmActivityTwo extends Activity implements OnPreparedListener {
 				// User clicked SNOOZE button
 
 				// FIXME: Retrieve snoozeDuration based on alarm created
-				snooze(3);
+				snooze(snoozeDuration);
 				mp.stop();
 			}
 		});
@@ -93,6 +96,7 @@ public class AlarmActivityTwo extends Activity implements OnPreparedListener {
 
 	private void snooze(int snoozeDurationSeconds) {
 		Intent intent = new Intent(this, SnoozeServiceThree.class);
+		intent.putExtras(b);
 		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -102,7 +106,7 @@ public class AlarmActivityTwo extends Activity implements OnPreparedListener {
 		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
 		finish();
-	} 
+	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {

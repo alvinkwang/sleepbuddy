@@ -23,16 +23,20 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 	private static final int RESULT_STRING_MATCH = 2;
 	private MediaPlayer mp;
 	private int gameType;
+	private int snoozeDuration;
+	private Bundle b;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alarm_activity_one);
 		Toast.makeText(getApplicationContext(), "AlarmActivityOne", Toast.LENGTH_SHORT).show();
+		
 		// Extract values from Bundle
-		Bundle b = this.getIntent().getExtras();
+		b = this.getIntent().getExtras();
 		if (b != null) {
 			gameType = b.getInt("game");
+			snoozeDuration = b.getInt("snooze");
 		}
 
 		mp = AlarmActivity.getMediaPlayer();
@@ -65,9 +69,7 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 		builder.setNegativeButton(R.string.dialog_button_snooze, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				// User clicked SNOOZE button
-
-				// FIXME: Retrieve snoozeDuration based on alarm created
-				snooze(3);
+				snooze(snoozeDuration);
 				mp.stop();
 			}
 		});
@@ -93,6 +95,7 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 
 	private void snooze(int snoozeDurationSeconds) {
 		Intent intent = new Intent(AlarmActivityOne.this, SnoozeServiceTwo.class);
+		intent.putExtras(b);
 		PendingIntent pendingIntent = PendingIntent.getService(AlarmActivityOne.this, 0, intent, 0);
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
