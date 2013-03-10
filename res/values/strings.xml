@@ -24,6 +24,8 @@
     <string name="title_activity_math_sum">MathSumActivity</string>
     <string name="mathsum_calculate">Calculate:</string>
     <string name="mathsum_solve">Solve!</string>
+    <string name="stringmatch_instructions">Type the following message: </string>
+    <string name="stringmatch_match">Match!</string>
     <string name="title_activity_string_match">StringMatchActivity</string>
     <string name="title_activity_alarm_activity_one">AlarmActivityOne</string>
     <string name="title_activity_alarm_activity_two">AlarmActivityTwo</string>
