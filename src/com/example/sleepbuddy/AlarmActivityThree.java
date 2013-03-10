@@ -22,6 +22,7 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 
 	private static final int RESULT_MATH_SUM = 1;
 	private static final int RESULT_STRING_MATCH = 2;
+	private static final int RESULT_SHAKER = 3;
 	private MediaPlayer mp;
 	private int gameType;
 
@@ -117,6 +118,10 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 			intent = new Intent(this, StringMatchActivity.class);
 			startActivityForResult(intent, RESULT_STRING_MATCH);
 			break;
+		case 2:
+			intent = new Intent(this, ShakerActivity.class);
+			startActivityForResult(intent, RESULT_SHAKER);
+			break;
 		}
 
 	}
@@ -134,6 +139,11 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 		case (RESULT_STRING_MATCH): {
 			if (resultCode == Activity.RESULT_OK) {
 				finish();
+			}
+			break;
+		}
+		case (RESULT_SHAKER): {
+			if (resultCode == Activity.RESULT_OK) {
 			}
 			break;
 		}

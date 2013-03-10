@@ -69,6 +69,10 @@
             android:name="com.example.sleepbuddy.AwakeConfirmationActivity"
             android:label="@string/title_activity_awake_confirmation" >
         </activity>
+        <activity
+            android:name="com.example.sleepbuddy.ShakerActivity"
+            android:label="@string/title_activity_shaker" >
+        </activity>
     </application>
 
 </manifest>

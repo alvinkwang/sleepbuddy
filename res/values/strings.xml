@@ -27,10 +27,13 @@
     <string name="stringmatch_instructions">Match the following message: </string>
     <string name="stringmatch_match">Match!</string>
     <string name="stringmatch_hint">Type above text here</string>
+    <string name="shaker_instructions">Shake target: </string>
+    <string name="shaker_current">Current shakes: </string>
     <string name="title_activity_string_match">StringMatchActivity</string>
     <string name="title_activity_alarm_activity_one">AlarmActivityOne</string>
     <string name="title_activity_alarm_activity_two">AlarmActivityTwo</string>
     <string name="title_activity_alarm_activity_three">AlarmActivityThree</string>
     <string name="title_activity_awake_confirmation">AwakeConfirmationActivity</string>
+    <string name="title_activity_shaker">ShakerActivity</string>
 
 </resources>
