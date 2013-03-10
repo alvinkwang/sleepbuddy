@@ -34,7 +34,7 @@ public class CreateAlarmActivity extends ListActivity {
 	static final String[] REPEAT = { "One Off", "Repeat" };
 	static final String[] SNOOZE_DURATION = { "3 minutes", "5 minutes", "10 minutes", "15 minutes", "30 minutes" };
 	static final String[] GAME_TYPE = { "Math Sum", "String Match", "Shaker" };
-	static final String[] BUDDY_LIST = { "Chen Xiao Xi", "Robin Bia", "Alvin Kwang", "Lim Kopi", "Thor Tan" };
+	static final String[] BUDDY_LIST = { "Alvin Kwang", "Robin Bia", "Chen Xiao Xi", "Lim Kopi", "Thor Tan" };
 
 	private int prevSelection = -1;
 	private int repeatSelected = 0;
@@ -252,6 +252,16 @@ public class CreateAlarmActivity extends ListActivity {
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
+	
+	private String getBuddiesNames(ArrayList<Integer> buddyList) {
+		String names = "";
+		for (int i=0; i<buddyList.size(); i++) {
+			if (buddyList.contains(i)) {
+				names = names + " " + BUDDY_LIST[i];
+			}
+		}
+		return names;
+	}
 
 	private void buildSMSBuddyDialog() {
 		// prevSelection = 0;
@@ -265,7 +275,9 @@ public class CreateAlarmActivity extends ListActivity {
 				selectedBuddies = tempBuddyList;
 				selectedBuddiesBoolean = tempBuddySelected;
 				// adapter.notifyDataSetChanged();
-				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
+				updateList(3, getBuddiesNames(selectedBuddies));
+				adapter.notifyDataSetChanged();
 			}
 		});
 		builder.setPositiveButton(R.string.dialog_button_cancel, new DialogInterface.OnClickListener() {
