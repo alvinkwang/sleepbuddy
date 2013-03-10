@@ -34,6 +34,9 @@
         </activity>
 
         <service android:name="com.example.sleepbuddy.AlarmService" />
+        <service android:name="com.example.sleepbuddy.SnoozeService" />
+        <service android:name="com.example.sleepbuddy.SnoozeServiceTwo" />
+        <service android:name="com.example.sleepbuddy.SnoozeServiceThree" />
 
         <activity
             android:name="com.example.sleepbuddy.AlarmActivity"
@@ -42,6 +45,22 @@
         <activity
             android:name="com.example.sleepbuddy.MathSumActivity"
             android:label="@string/title_activity_math_sum" >
+        </activity>
+        <activity
+            android:name="com.example.sleepbuddy.StringMatchActivity"
+            android:label="@string/title_activity_string_match" >
+        </activity>
+        <activity
+            android:name="com.example.sleepbuddy.AlarmActivityOne"
+            android:label="@string/title_activity_alarm_activity_one" >
+        </activity>
+        <activity
+            android:name="com.example.sleepbuddy.AlarmActivityTwo"
+            android:label="@string/title_activity_alarm_activity_two" >
+        </activity>
+        <activity
+            android:name="com.example.sleepbuddy.AlarmActivityThree"
+            android:label="@string/title_activity_alarm_activity_three" >
         </activity>
     </application>
 

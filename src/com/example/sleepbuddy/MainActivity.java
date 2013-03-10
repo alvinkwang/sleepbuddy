@@ -12,12 +12,13 @@ import android.widget.ArrayAdapter;
 public class MainActivity extends ListActivity {
 
 	public static ArrayList<Alarm> alarmList = new ArrayList<Alarm>();
-	
+
 	public final static String EXTRA_MESSAGE = "MESSAGE";
 	ArrayAdapter<String> adapter;
 	ArrayList<String> listItems = new ArrayList<String>();
-//	int clickCounter=0;
-	
+
+	// int clickCounter=0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,15 +33,16 @@ public class MainActivity extends ListActivity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
+
 	public void createAlarm(View view) {
 		Intent intent = new Intent(this, CreateAlarmActivity.class);
 		startActivity(intent);
-//		listItems.add("Clicked : "+clickCounter++);
-//		adapter.notifyDataSetChanged();
+		// listItems.add("Clicked : "+clickCounter++);
+		// adapter.notifyDataSetChanged();
 	}
 
 	public static ArrayList<Alarm> getAlarmList() {
 		return alarmList;
 	}
+
 }

@@ -25,13 +25,6 @@ import android.widget.SimpleAdapter;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-/*
- * TODO
- * (b) Implement Save and Cancel button
- * (e) Currently hardcoded buddy list. MAX SIZE == 5!
- * 
- */
-
 public class CreateAlarmActivity extends ListActivity {
 
 	static final String[] ALARM_SETTINGS = { "Alarm Repeat", "Snooze Duration", "Game Type", "SMS Buddy" };
@@ -117,23 +110,36 @@ public class CreateAlarmActivity extends ListActivity {
 			public void onClick(View v) {
 
 				Intent intent = new Intent(CreateAlarmActivity.this, AlarmService.class);
+				intent.putExtra("gameType", gameTypeSelected);
+				intent.putExtra("snooze", getSnoozeDurationInSeconds());
+				Toast.makeText(getApplicationContext(),
+						"G+S: " + gameTypeSelected + "|" + getSnoozeDurationInSeconds(), Toast.LENGTH_SHORT).show();
 				PendingIntent pendingIntent = PendingIntent.getService(CreateAlarmActivity.this, 0, intent, 0);
 
 				AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-				//FIXME: To set alarm to trigger at time defined by user
+				// FIXME: To set alarm to trigger at time defined by user
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTimeInMillis(System.currentTimeMillis());
-				calendar.add(Calendar.SECOND, 3);
+				calendar.add(Calendar.SECOND, getSnoozeDurationInSeconds());
 				alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
 				Alarm alarm = new Alarm(hour, min, REPEAT[repeatSelected], SNOOZE_DURATION[snoozeDurationSelected],
 						GAME_TYPE[gameTypeSelected], BUDDY_LIST);
 				MainActivity.getAlarmList().add(alarm);
 
-//				Toast.makeText(getApplicationContext(), hour + "|" + min, Toast.LENGTH_SHORT).show();
 				finish();
 			}
 		});
+	}
+
+	private int getSnoozeDurationInSeconds() {
+		String s = SNOOZE_DURATION[snoozeDurationSelected];
+		String value = s.substring(0, s.indexOf(' '));
+		int mins = Integer.parseInt(value);
+		int seconds = mins * 60;
+		// return seconds;
+		// FIXME: hardcoded to 3 seconds
+		return 3;
 	}
 
 	private void addCancelButton() {
@@ -175,13 +181,11 @@ public class CreateAlarmActivity extends ListActivity {
 			public void onClick(DialogInterface dialog, int id) {
 				updateList(0, REPEAT[repeatSelected]);
 				adapter.notifyDataSetChanged();
-				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
 			}
 		});
 		builder.setPositiveButton(R.string.dialog_button_cancel, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				repeatSelected = prevSelection;
-				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
 			}
 		});
 		builder.setSingleChoiceItems(REPEAT, repeatSelected, new DialogInterface.OnClickListener() {
@@ -204,13 +208,11 @@ public class CreateAlarmActivity extends ListActivity {
 			public void onClick(DialogInterface dialog, int id) {
 				updateList(1, SNOOZE_DURATION[snoozeDurationSelected]);
 				adapter.notifyDataSetChanged();
-				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
 			}
 		});
 		builder.setPositiveButton(R.string.dialog_button_cancel, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				snoozeDurationSelected = prevSelection;
-				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
 			}
 		});
 		builder.setSingleChoiceItems(SNOOZE_DURATION, snoozeDurationSelected, new DialogInterface.OnClickListener() {
@@ -233,13 +235,11 @@ public class CreateAlarmActivity extends ListActivity {
 			public void onClick(DialogInterface dialog, int id) {
 				updateList(2, GAME_TYPE[gameTypeSelected]);
 				adapter.notifyDataSetChanged();
-				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
 			}
 		});
 		builder.setPositiveButton(R.string.dialog_button_cancel, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				gameTypeSelected = prevSelection;
-				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
 			}
 		});
 		builder.setSingleChoiceItems(GAME_TYPE, gameTypeSelected, new DialogInterface.OnClickListener() {

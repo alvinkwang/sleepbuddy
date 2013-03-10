@@ -12,15 +12,16 @@ import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Toast;
 
-public class AlarmActivity extends Activity {
+public class AlarmActivityTwo extends Activity implements OnPreparedListener {
 
 	private static final int RESULT_MATH_SUM = 1;
 	private static final int RESULT_STRING_MATCH = 2;
-	private static MediaPlayer mediaPlayer;
+	private MediaPlayer mp;
 	private Bundle b;
 	private int gameType;
 	private int snoozeDuration;
@@ -28,27 +29,28 @@ public class AlarmActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_alarm);
-
+		setContentView(R.layout.activity_alarm_activity_two);
+		
 		// Extract values from Bundle
 		b = this.getIntent().getExtras();
 		if (b != null) {
-			gameType = b.getInt("game");
+			gameType = b.getInt("gameType");
 			snoozeDuration = b.getInt("snooze");
-			Toast.makeText(getApplicationContext(), "AlarmActivity: " + gameType + "|" + snoozeDuration, Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(getApplicationContext(), "AlarmActivityTwo" + gameType + "|" + snoozeDuration, Toast.LENGTH_SHORT).show();
 		}
 
+		mp = AlarmActivity.getMediaPlayer();
 		playAlarm();
 		createAlertDialog();
-
 	}
 
-
 	private void playAlarm() {
-		mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.alarm_siren);
-		mediaPlayer.setLooping(true);
-		mediaPlayer.start();
+		mp.setOnPreparedListener(this);
+		mp.prepareAsync();
+	}
+
+	public void onPrepared(MediaPlayer player) {
+		player.start();
 	}
 
 	private void createAlertDialog() {
@@ -61,7 +63,7 @@ public class AlarmActivity extends Activity {
 		builder.setPositiveButton(R.string.dialog_button_dismiss, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				// User clicked DISMISS button
-				displaySelectedGame(gameType);
+				displaySelectedGame();
 			}
 		});
 		builder.setNegativeButton(R.string.dialog_button_snooze, new DialogInterface.OnClickListener() {
@@ -70,7 +72,7 @@ public class AlarmActivity extends Activity {
 
 				// FIXME: Retrieve snoozeDuration based on alarm created
 				snooze(snoozeDuration);
-				mediaPlayer.stop();
+				mp.stop();
 			}
 		});
 
@@ -78,23 +80,7 @@ public class AlarmActivity extends Activity {
 		dialog.show();
 	}
 
-	private void snooze(int snoozeDurationSeconds) {
-		Intent intent = new Intent(AlarmActivity.this, SnoozeService.class);
-		intent.putExtra("gameType", gameType);
-		intent.putExtra("snooze", snoozeDuration);
-//		Toast.makeText(getApplicationContext(), "Send: " + gameType + "|" + snoozeDuration, Toast.LENGTH_SHORT).show();
-		PendingIntent pendingIntent = PendingIntent.getService(AlarmActivity.this, 0, intent, 0);
-
-		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(System.currentTimeMillis());
-		calendar.add(Calendar.SECOND, snoozeDurationSeconds);
-		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
-		finish();
-	}
-
-	private void displaySelectedGame(int gameType) {
+	private void displaySelectedGame() {
 		Intent intent;
 		switch (gameType) {
 		case 0:
@@ -107,6 +93,21 @@ public class AlarmActivity extends Activity {
 			break;
 		}
 
+	}
+
+	private void snooze(int snoozeDurationSeconds) {
+		Intent intent = new Intent(this, SnoozeServiceThree.class);
+		intent.putExtra("gameType", gameType);
+		intent.putExtra("snooze", snoozeDuration);
+		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
+
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		calendar.add(Calendar.SECOND, snoozeDurationSeconds);
+		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+		finish();
 	}
 
 	@Override
@@ -130,12 +131,9 @@ public class AlarmActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.alarm, menu);
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.alarm_activity_one, menu);
 		return true;
-	}
-
-	public static MediaPlayer getMediaPlayer() {
-		return mediaPlayer;
 	}
 
 }
