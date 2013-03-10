@@ -25,7 +25,6 @@ public class MathSumActivity extends Activity {
 		generateMathSum(0);
 		TextView qnField = (TextView) findViewById(R.id.mathSum);
 		qnField.setText(displayQn);
-
 		solutionField = (EditText) findViewById(R.id.mathSolution);
 	}
 

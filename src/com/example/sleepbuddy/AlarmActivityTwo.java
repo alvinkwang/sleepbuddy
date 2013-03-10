@@ -127,6 +127,22 @@ public class AlarmActivityTwo extends Activity implements OnPreparedListener {
 			break;
 		}
 		}
+		
+		startAwakeNotificationService();
+		finish();
+	}
+	
+	private void startAwakeNotificationService() {
+		Intent intent = new Intent(this, AwakeNotificationService.class);
+		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
+
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		// FIXME: Set to pop up after 15mins
+		// calendar.add(Calendar.SECOND, 15*60);
+		calendar.add(Calendar.SECOND, MainActivity.TEST_AWAKE_NOTIFICATION_DURATION);
+		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 	}
 
 	@Override

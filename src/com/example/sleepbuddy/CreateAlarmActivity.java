@@ -138,8 +138,8 @@ public class CreateAlarmActivity extends ListActivity {
 		int mins = Integer.parseInt(value);
 		int seconds = mins * 60;
 		// return seconds;
-		// FIXME: hardcoded to 3 seconds
-		return 3;
+		// FIXME: hardcoded in mainActivity
+		return MainActivity.TEST_SNOOZE_DURATION;
 	}
 
 	private void addCancelButton() {

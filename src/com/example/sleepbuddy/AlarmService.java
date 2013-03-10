@@ -21,7 +21,7 @@ public class AlarmService extends Service {
 			gameType = b.getInt("gameType");
 			snoozeDuration = b.getInt("snooze");
 		}
-
+		
 		Intent dialogIntent = new Intent(getBaseContext(), AlarmActivity.class);
 		dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		dialogIntent.putExtra("game", gameType);

@@ -116,20 +116,17 @@ public class AlarmActivity extends Activity {
 		switch (requestCode) {
 		case (RESULT_MATH_SUM): {
 			if (resultCode == Activity.RESULT_OK) {
-//				finish();
 			}
 			break;
 		}
 		case (RESULT_STRING_MATCH): {
 			if (resultCode == Activity.RESULT_OK) {
-//				finish();
 			}
 			break;
 		}
 		}
 
 		startAwakeNotificationService();
-		Toast.makeText(getApplicationContext(), "start awake notification", Toast.LENGTH_SHORT).show();
 		finish();
 	}
 
@@ -142,7 +139,7 @@ public class AlarmActivity extends Activity {
 		calendar.setTimeInMillis(System.currentTimeMillis());
 		// FIXME: Set to pop up after 15mins
 		// calendar.add(Calendar.SECOND, 15*60);
-		calendar.add(Calendar.SECOND, 10);
+		calendar.add(Calendar.SECOND, MainActivity.TEST_AWAKE_NOTIFICATION_DURATION);
 		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 	}
 

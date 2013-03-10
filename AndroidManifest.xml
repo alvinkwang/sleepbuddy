@@ -39,6 +39,7 @@
         <service android:name="com.example.sleepbuddy.SnoozeServiceTwo" />
         <service android:name="com.example.sleepbuddy.SnoozeServiceThree" />
         <service android:name="com.example.sleepbuddy.AwakeNotificationService" />
+        <service android:name="com.example.sleepbuddy.DetectUserAwakeService" />
 
         <activity
             android:name="com.example.sleepbuddy.AlarmActivity"

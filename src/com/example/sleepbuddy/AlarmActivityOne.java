@@ -114,19 +114,33 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 		switch (requestCode) {
 		case (RESULT_MATH_SUM): {
 			if (resultCode == Activity.RESULT_OK) {
-				finish();
 			}
 			break;
 		}
 		case (RESULT_STRING_MATCH): {
 			if (resultCode == Activity.RESULT_OK) {
-				finish();
 			}
 			break;
 		}
 		}
+		
+		startAwakeNotificationService();
+		finish();
 	}
 
+	private void startAwakeNotificationService() {
+		Intent intent = new Intent(this, AwakeNotificationService.class);
+		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
+
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		// FIXME: Set to pop up after 15mins
+		// calendar.add(Calendar.SECOND, 15*60);
+		calendar.add(Calendar.SECOND, MainActivity.TEST_AWAKE_NOTIFICATION_DURATION);
+		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

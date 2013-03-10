@@ -13,7 +13,9 @@ public class MainActivity extends ListActivity {
 
 	public static ArrayList<Alarm> alarmList = new ArrayList<Alarm>();
 
-	public final static String EXTRA_MESSAGE = "MESSAGE";
+	public final static int TEST_SNOOZE_DURATION = 3;
+	public final static int TEST_AWAKE_NOTIFICATION_DURATION = 3;
+	public final static int TEST_IS_USER_AWAKE_DURATION = 3;
 	ArrayAdapter<String> adapter;
 	ArrayList<String> listItems = new ArrayList<String>();
 
