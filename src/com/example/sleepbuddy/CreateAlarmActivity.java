@@ -255,9 +255,9 @@ public class CreateAlarmActivity extends ListActivity {
 	
 	private String getBuddiesNames(ArrayList<Integer> buddyList) {
 		String names = "";
-		for (int i=0; i<buddyList.size(); i++) {
+		for (int i=0; i<BUDDY_LIST.length; i++) {
 			if (buddyList.contains(i)) {
-				names = names + " " + BUDDY_LIST[i];
+				names = names + " " + BUDDY_LIST[i] + ";";
 			}
 		}
 		return names;
