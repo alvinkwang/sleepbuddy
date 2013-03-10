@@ -10,7 +10,7 @@
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -38,6 +38,7 @@
         <service android:name="com.example.sleepbuddy.SnoozeService" />
         <service android:name="com.example.sleepbuddy.SnoozeServiceTwo" />
         <service android:name="com.example.sleepbuddy.SnoozeServiceThree" />
+        <service android:name="com.example.sleepbuddy.AwakeNotificationService" />
 
         <activity
             android:name="com.example.sleepbuddy.AlarmActivity"
@@ -62,6 +63,10 @@
         <activity
             android:name="com.example.sleepbuddy.AlarmActivityThree"
             android:label="@string/title_activity_alarm_activity_three" >
+        </activity>
+        <activity
+            android:name="com.example.sleepbuddy.AwakeConfirmationActivity"
+            android:label="@string/title_activity_awake_confirmation" >
         </activity>
     </application>
 

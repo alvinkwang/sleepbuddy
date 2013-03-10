@@ -16,6 +16,7 @@
     <string name="dialog_title_game_type">Game Type</string>
     <string name="dialog_title_sms_buddy">SMS Buddy</string>
     <string name="dialog_title_sms_sent">Buddy Notified</string>
+    <string name="dialog_title_awake_confirmation">Awake Confirmation</string>
     <string name="title_activity_alarm">AlarmActivity</string>
     <string name="dialog_title_alarm">Alarm</string>
     <string name="dialog_button_dismiss">Dismiss</string>
@@ -27,5 +28,6 @@
     <string name="title_activity_alarm_activity_one">AlarmActivityOne</string>
     <string name="title_activity_alarm_activity_two">AlarmActivityTwo</string>
     <string name="title_activity_alarm_activity_three">AlarmActivityThree</string>
+    <string name="title_activity_awake_confirmation">AwakeConfirmationActivity</string>
 
 </resources>

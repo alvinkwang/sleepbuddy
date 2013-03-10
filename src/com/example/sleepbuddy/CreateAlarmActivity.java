@@ -34,7 +34,7 @@ public class CreateAlarmActivity extends ListActivity {
 	static final String[] REPEAT = { "One Off", "Repeat" };
 	static final String[] SNOOZE_DURATION = { "3 minutes", "5 minutes", "10 minutes", "15 minutes", "30 minutes" };
 	static final String[] GAME_TYPE = { "Math Sum", "Captcha", "Shaker" };
-	static final String[] BUDDY_LIST = { "Chen Xiao Xi", "Robin Bia", "Alvin Wong", "Lim Kopi", "Thor Tan" };
+	static final String[] BUDDY_LIST = { "Chen Xiao Xi", "Robin Bia", "Alvin Kwang", "Lim Kopi", "Thor Tan" };
 
 	private int prevSelection = -1;
 	private int repeatSelected = 0;

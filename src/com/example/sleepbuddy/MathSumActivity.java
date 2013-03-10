@@ -39,11 +39,6 @@ public class MathSumActivity extends Activity {
 			setResult(Activity.RESULT_OK, resultIntent);
 			finish();
 
-			Intent intent = new Intent(Intent.ACTION_MAIN);
-			intent.addCategory(Intent.CATEGORY_HOME);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(intent);
-			
 			Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
 		} else {
 			Toast.makeText(getApplicationContext(), "Incorrect Answer.", Toast.LENGTH_SHORT).show();

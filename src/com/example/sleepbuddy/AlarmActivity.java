@@ -35,15 +35,14 @@ public class AlarmActivity extends Activity {
 		if (b != null) {
 			gameType = b.getInt("game");
 			snoozeDuration = b.getInt("snooze");
-			Toast.makeText(getApplicationContext(), "AlarmActivity: " + gameType + "|" + snoozeDuration, Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(getApplicationContext(), "AlarmActivity: " + gameType + "|" + snoozeDuration,
+					Toast.LENGTH_SHORT).show();
 		}
 
 		playAlarm();
 		createAlertDialog();
 
 	}
-
 
 	private void playAlarm() {
 		mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.alarm_siren);
@@ -82,7 +81,8 @@ public class AlarmActivity extends Activity {
 		Intent intent = new Intent(AlarmActivity.this, SnoozeService.class);
 		intent.putExtra("gameType", gameType);
 		intent.putExtra("snooze", snoozeDuration);
-//		Toast.makeText(getApplicationContext(), "Send: " + gameType + "|" + snoozeDuration, Toast.LENGTH_SHORT).show();
+		// Toast.makeText(getApplicationContext(), "Send: " + gameType + "|" +
+		// snoozeDuration, Toast.LENGTH_SHORT).show();
 		PendingIntent pendingIntent = PendingIntent.getService(AlarmActivity.this, 0, intent, 0);
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -100,6 +100,7 @@ public class AlarmActivity extends Activity {
 		case 0:
 			intent = new Intent(this, MathSumActivity.class);
 			startActivityForResult(intent, RESULT_MATH_SUM);
+			Toast.makeText(getApplicationContext(), "s1", Toast.LENGTH_SHORT).show();
 			break;
 		case 1:
 			intent = new Intent(this, StringMatchActivity.class);
@@ -115,17 +116,34 @@ public class AlarmActivity extends Activity {
 		switch (requestCode) {
 		case (RESULT_MATH_SUM): {
 			if (resultCode == Activity.RESULT_OK) {
-				finish();
+//				finish();
 			}
 			break;
 		}
 		case (RESULT_STRING_MATCH): {
 			if (resultCode == Activity.RESULT_OK) {
-				finish();
+//				finish();
 			}
 			break;
 		}
 		}
+
+		startAwakeNotificationService();
+		Toast.makeText(getApplicationContext(), "start awake notification", Toast.LENGTH_SHORT).show();
+		finish();
+	}
+
+	private void startAwakeNotificationService() {
+		Intent intent = new Intent(this, AwakeNotificationService.class);
+		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
+
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		// FIXME: Set to pop up after 15mins
+		// calendar.add(Calendar.SECOND, 15*60);
+		calendar.add(Calendar.SECOND, 10);
+		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 	}
 
 	@Override
