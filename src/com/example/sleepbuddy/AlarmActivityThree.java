@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.Menu;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alarm_activity_three);
-		
+
 		// Extract values from Bundle
 		Bundle b = this.getIntent().getExtras();
 		if (b != null) {
@@ -73,7 +74,33 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 	}
 
 	private void sendSMS() {
+
+		SmsManager sm = SmsManager.getDefault();
+		String contactNum = "91110021";
+		String msg = "Alvin has snoozed 3 times!";
+		sm.sendTextMessage(contactNum, null, msg, null, null);
 		Toast.makeText(getApplicationContext(), "SMS Sent!", Toast.LENGTH_SHORT).show();
+		
+		createSMSSentDialog();
+	}
+	
+	private void createSMSSentDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		SimpleDateFormat sdf = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
+		String currentDateandTime = sdf.format(new Date());
+
+		builder.setTitle(R.string.dialog_title_sms_sent);
+		//FIXME: Display user selected buddy in notification
+		String msg = "A SMS has been sent to Alvin Kwang at " + currentDateandTime;
+		builder.setMessage(msg);
+		builder.setPositiveButton(R.string.dialog_button_dismiss, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				finish();
+			}
+		});
+
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 
 	private void displaySelectedGame() {
