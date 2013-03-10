@@ -117,9 +117,11 @@ public class CreateAlarmActivity extends ListActivity {
 			public void onClick(View v) {
 
 				Intent intent = new Intent(CreateAlarmActivity.this, AlarmService.class);
-				intent.putExtra("hello", 42);
+				intent.putExtra("gameType", gameTypeSelected);
 				PendingIntent pendingIntent = PendingIntent.getService(CreateAlarmActivity.this, 0, intent, 0);
 
+//				Toast.makeText(getApplicationContext(), "GAMETYPE: "+ GAME_TYPE[gameTypeSelected], Toast.LENGTH_SHORT).show(); 
+				
 				AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 				//FIXME: To set alarm to trigger at time defined by user
 				Calendar calendar = Calendar.getInstance();
@@ -130,8 +132,7 @@ public class CreateAlarmActivity extends ListActivity {
 				Alarm alarm = new Alarm(hour, min, REPEAT[repeatSelected], SNOOZE_DURATION[snoozeDurationSelected],
 						GAME_TYPE[gameTypeSelected], BUDDY_LIST);
 				MainActivity.getAlarmList().add(alarm);
-
-//				Toast.makeText(getApplicationContext(), hour + "|" + min, Toast.LENGTH_SHORT).show();
+				
 				finish();
 			}
 		});
@@ -176,13 +177,13 @@ public class CreateAlarmActivity extends ListActivity {
 			public void onClick(DialogInterface dialog, int id) {
 				updateList(0, REPEAT[repeatSelected]);
 				adapter.notifyDataSetChanged();
-				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
 			}
 		});
 		builder.setPositiveButton(R.string.dialog_button_cancel, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				repeatSelected = prevSelection;
-				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
 			}
 		});
 		builder.setSingleChoiceItems(REPEAT, repeatSelected, new DialogInterface.OnClickListener() {
@@ -205,13 +206,13 @@ public class CreateAlarmActivity extends ListActivity {
 			public void onClick(DialogInterface dialog, int id) {
 				updateList(1, SNOOZE_DURATION[snoozeDurationSelected]);
 				adapter.notifyDataSetChanged();
-				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
 			}
 		});
 		builder.setPositiveButton(R.string.dialog_button_cancel, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				snoozeDurationSelected = prevSelection;
-				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
 			}
 		});
 		builder.setSingleChoiceItems(SNOOZE_DURATION, snoozeDurationSelected, new DialogInterface.OnClickListener() {
@@ -234,13 +235,13 @@ public class CreateAlarmActivity extends ListActivity {
 			public void onClick(DialogInterface dialog, int id) {
 				updateList(2, GAME_TYPE[gameTypeSelected]);
 				adapter.notifyDataSetChanged();
-				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
 			}
 		});
 		builder.setPositiveButton(R.string.dialog_button_cancel, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				gameTypeSelected = prevSelection;
-				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
 			}
 		});
 		builder.setSingleChoiceItems(GAME_TYPE, gameTypeSelected, new DialogInterface.OnClickListener() {
