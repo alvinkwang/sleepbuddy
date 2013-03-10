@@ -30,13 +30,13 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alarm_activity_one);
-		Toast.makeText(getApplicationContext(), "AlarmActivityOne", Toast.LENGTH_SHORT).show();
 		
 		// Extract values from Bundle
 		b = this.getIntent().getExtras();
 		if (b != null) {
-			gameType = b.getInt("game");
+			gameType = b.getInt("gameType");
 			snoozeDuration = b.getInt("snooze");
+			Toast.makeText(getApplicationContext(), "AlarmActivityOne" + gameType + "|" + snoozeDuration, Toast.LENGTH_SHORT).show();
 		}
 
 		mp = AlarmActivity.getMediaPlayer();
@@ -95,7 +95,8 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 
 	private void snooze(int snoozeDurationSeconds) {
 		Intent intent = new Intent(AlarmActivityOne.this, SnoozeServiceTwo.class);
-		intent.putExtras(b);
+		intent.putExtra("gameType", gameType);
+		intent.putExtra("snooze", snoozeDuration);
 		PendingIntent pendingIntent = PendingIntent.getService(AlarmActivityOne.this, 0, intent, 0);
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

@@ -113,6 +113,7 @@ public class CreateAlarmActivity extends ListActivity {
 				Intent intent = new Intent(CreateAlarmActivity.this, AlarmService.class);
 				intent.putExtra("gameType", gameTypeSelected);
 				intent.putExtra("snooze", getSnoozeDurationInSeconds());
+				Toast.makeText(getApplicationContext(), "G+S: " + gameTypeSelected + "|" + getSnoozeDurationInSeconds(), Toast.LENGTH_SHORT).show();
 				PendingIntent pendingIntent = PendingIntent.getService(CreateAlarmActivity.this, 0, intent, 0);
 
 				AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

@@ -29,19 +29,21 @@ public class AlarmActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alarm);
-		Toast.makeText(getApplicationContext(), "AlarmActivity", Toast.LENGTH_SHORT).show();
 
 		// Extract values from Bundle
 		b = this.getIntent().getExtras();
 		if (b != null) {
 			gameType = b.getInt("game");
 			snoozeDuration = b.getInt("snooze");
+			Toast.makeText(getApplicationContext(), "AlarmActivity: " + gameType + "|" + snoozeDuration, Toast.LENGTH_SHORT)
+					.show();
 		}
 
 		playAlarm();
 		createAlertDialog();
 
 	}
+
 
 	private void playAlarm() {
 		mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.alarm_siren);
@@ -78,7 +80,9 @@ public class AlarmActivity extends Activity {
 
 	private void snooze(int snoozeDurationSeconds) {
 		Intent intent = new Intent(AlarmActivity.this, SnoozeService.class);
-		intent.putExtras(b);
+		intent.putExtra("gameType", gameType);
+		intent.putExtra("snooze", snoozeDuration);
+//		Toast.makeText(getApplicationContext(), "Send: " + gameType + "|" + snoozeDuration, Toast.LENGTH_SHORT).show();
 		PendingIntent pendingIntent = PendingIntent.getService(AlarmActivity.this, 0, intent, 0);
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

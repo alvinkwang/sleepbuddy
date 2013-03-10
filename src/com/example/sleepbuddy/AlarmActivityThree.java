@@ -25,12 +25,12 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alarm_activity_three);
-		Toast.makeText(getApplicationContext(), "AlarmActivityThree", Toast.LENGTH_SHORT).show();
 		
 		// Extract values from Bundle
 		Bundle b = this.getIntent().getExtras();
 		if (b != null) {
-			gameType = b.getInt("game");
+			gameType = b.getInt("gameType");
+			Toast.makeText(getApplicationContext(), "AlarmActivityThree" + gameType + "|0", Toast.LENGTH_SHORT).show();
 		}
 
 		mp = AlarmActivity.getMediaPlayer();
