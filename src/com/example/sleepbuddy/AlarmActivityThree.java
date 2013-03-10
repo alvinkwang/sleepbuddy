@@ -35,7 +35,8 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 		Bundle b = this.getIntent().getExtras();
 		if (b != null) {
 			gameType = b.getInt("gameType");
-			Toast.makeText(getApplicationContext(), "AlarmActivityThree" + gameType + "|0", Toast.LENGTH_SHORT).show();
+			// Toast.makeText(getApplicationContext(), "AlarmActivityThree" +
+			// gameType + "|0", Toast.LENGTH_SHORT).show();
 		}
 
 		mp = AlarmActivity.getMediaPlayer();
@@ -84,17 +85,17 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 		String msg = "Alvin has snoozed 3 times!";
 		sm.sendTextMessage(contactNum, null, msg, null, null);
 		Toast.makeText(getApplicationContext(), "SMS Sent!", Toast.LENGTH_SHORT).show();
-		
+
 		createSMSSentDialog();
 	}
-	
+
 	private void createSMSSentDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		SimpleDateFormat sdf = new SimpleDateFormat("h:mm a", Locale.ENGLISH);
 		String currentDateandTime = sdf.format(new Date());
 
 		builder.setTitle(R.string.dialog_title_sms_sent);
-		//FIXME: Display user selected buddy in notification
+		// FIXME: Display user selected buddy in notification
 		String msg = "A SMS has been sent to Alvin Kwang at " + currentDateandTime;
 		builder.setMessage(msg);
 		builder.setPositiveButton(R.string.dialog_button_dismiss, new DialogInterface.OnClickListener() {
@@ -148,11 +149,11 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 			break;
 		}
 		}
-		
+
 		startAwakeNotificationService();
 		finish();
 	}
-	
+
 	private void startAwakeNotificationService() {
 		Intent intent = new Intent(this, AwakeNotificationService.class);
 		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);

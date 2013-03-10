@@ -36,8 +36,8 @@ public class AlarmActivity extends Activity {
 		if (b != null) {
 			gameType = b.getInt("game");
 			snoozeDuration = b.getInt("snooze");
-			Toast.makeText(getApplicationContext(), "AlarmActivity: " + gameType + "|" + snoozeDuration,
-					Toast.LENGTH_SHORT).show();
+//			Toast.makeText(getApplicationContext(), "AlarmActivity: " + gameType + "|" + snoozeDuration,
+//					Toast.LENGTH_SHORT).show();
 		}
 
 		playAlarm();

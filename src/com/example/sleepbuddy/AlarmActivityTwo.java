@@ -15,7 +15,6 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.Toast;
 
 public class AlarmActivityTwo extends Activity implements OnPreparedListener {
 
@@ -31,13 +30,14 @@ public class AlarmActivityTwo extends Activity implements OnPreparedListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alarm_activity_two);
-		
+
 		// Extract values from Bundle
 		b = this.getIntent().getExtras();
 		if (b != null) {
 			gameType = b.getInt("gameType");
 			snoozeDuration = b.getInt("snooze");
-			Toast.makeText(getApplicationContext(), "AlarmActivityTwo" + gameType + "|" + snoozeDuration, Toast.LENGTH_SHORT).show();
+			// Toast.makeText(getApplicationContext(), "AlarmActivityTwo" +
+			// gameType + "|" + snoozeDuration, Toast.LENGTH_SHORT).show();
 		}
 
 		mp = AlarmActivity.getMediaPlayer();
@@ -137,11 +137,11 @@ public class AlarmActivityTwo extends Activity implements OnPreparedListener {
 			break;
 		}
 		}
-		
+
 		startAwakeNotificationService();
 		finish();
 	}
-	
+
 	private void startAwakeNotificationService() {
 		Intent intent = new Intent(this, AwakeNotificationService.class);
 		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);

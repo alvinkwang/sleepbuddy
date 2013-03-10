@@ -15,7 +15,6 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.Toast;
 
 public class AlarmActivityOne extends Activity implements OnPreparedListener {
 
@@ -31,13 +30,14 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_alarm_activity_one);
-		
+
 		// Extract values from Bundle
 		b = this.getIntent().getExtras();
 		if (b != null) {
 			gameType = b.getInt("gameType");
 			snoozeDuration = b.getInt("snooze");
-			Toast.makeText(getApplicationContext(), "AlarmActivityOne" + gameType + "|" + snoozeDuration, Toast.LENGTH_SHORT).show();
+			// Toast.makeText(getApplicationContext(), "AlarmActivityOne" +
+			// gameType + "|" + snoozeDuration, Toast.LENGTH_SHORT).show();
 		}
 
 		mp = AlarmActivity.getMediaPlayer();
@@ -133,7 +133,7 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 			break;
 		}
 		}
-		
+
 		startAwakeNotificationService();
 		finish();
 	}
@@ -150,7 +150,7 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 		calendar.add(Calendar.SECOND, MainActivity.TEST_AWAKE_NOTIFICATION_DURATION);
 		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
