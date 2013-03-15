@@ -3,9 +3,7 @@ package com.example.sleepbuddy;
 import java.util.ArrayList;
 
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
