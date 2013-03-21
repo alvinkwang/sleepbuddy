@@ -101,7 +101,7 @@ public class AlarmActivity extends Activity {
 		case 0:
 			intent = new Intent(this, MathSumActivity.class);
 			startActivityForResult(intent, RESULT_MATH_SUM);
-			Toast.makeText(getApplicationContext(), "s1", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(getApplicationContext(), "s1", Toast.LENGTH_SHORT).show();
 			break;
 		case 1:
 			intent = new Intent(this, StringMatchActivity.class);
