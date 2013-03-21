@@ -33,13 +33,13 @@ public class CreateAlarmActivity extends ListActivity {
 
 	static final String[] REPEAT = { "One Off", "Repeat" };
 	static final String[] SNOOZE_DURATION = { "3 minutes", "5 minutes", "10 minutes", "15 minutes", "30 minutes" };
-	static final String[] GAME_TYPE = { "Math Sum", "String Match", "Shaker" };
+	static final String[] GAME_TYPE = { "Random", "Math Sum", "String Match", "Shaker" };
 	static final String[] BUDDY_LIST = { "Alvin Kwang", "Robin Bia", "Chen Xiao Xi", "Lim Kopi", "Thor Tan" };
 
 	private int prevSelection = -1;
 	private int repeatSelected = 0;
 	private int snoozeDurationSelected = 1;
-	private int gameTypeSelected = 0;
+	private int gameTypeSelected = 1;
 	private ArrayList<Integer> selectedBuddies = new ArrayList<Integer>();
 	private boolean[] selectedBuddiesBoolean = { false, false, false, false, false };
 
