@@ -42,6 +42,7 @@ public class CreateAlarmActivity extends ListActivity {
 	private int gameTypeSelected = 1;
 	private ArrayList<Integer> selectedBuddies = new ArrayList<Integer>();
 	private boolean[] selectedBuddiesBoolean = { false, false, false, false, false };
+	private String smsBuddyCheat = "0";
 
 	private ArrayList<Map<String, String>> list;
 	private SimpleAdapter adapter;
@@ -112,6 +113,7 @@ public class CreateAlarmActivity extends ListActivity {
 				Intent intent = new Intent(CreateAlarmActivity.this, AlarmService.class);
 				intent.putExtra("gameType", gameTypeSelected);
 				intent.putExtra("snooze", getSnoozeDurationInSeconds());
+				intent.putExtra("smsCheat", smsBuddyCheat);
 				PendingIntent pendingIntent = PendingIntent.getService(CreateAlarmActivity.this, 0, intent, 0);
 
 				AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -257,6 +259,16 @@ public class CreateAlarmActivity extends ListActivity {
 		}
 		return names;
 	}
+	
+	private void generateBuddyIntentString(ArrayList<Integer> buddyList) {
+		String s = "" + buddyList.size();
+		for (int i=0; i<BUDDY_LIST.length; i++) {
+			if (buddyList.contains(i)) {
+				s = s + i;
+			}
+		}
+		smsBuddyCheat = s;
+	}
 
 	private void buildSMSBuddyDialog() {
 		// prevSelection = 0;
@@ -271,6 +283,7 @@ public class CreateAlarmActivity extends ListActivity {
 				selectedBuddiesBoolean = tempBuddySelected;
 				// adapter.notifyDataSetChanged();
 				updateList(3, getBuddiesNames(selectedBuddies));
+				generateBuddyIntentString(selectedBuddies);
 				adapter.notifyDataSetChanged();
 			}
 		});

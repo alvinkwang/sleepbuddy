@@ -9,6 +9,7 @@ public class SnoozeServiceTwo extends Service {
 
 	private int gameType;
 	private int snoozeDuration;
+	private String s;
 
 	@Override
 	public void onStart(Intent intent, int startId) {
@@ -16,6 +17,7 @@ public class SnoozeServiceTwo extends Service {
 		if (b != null) {
 			gameType = b.getInt("gameType");
 			snoozeDuration = b.getInt("snooze");
+			s = b.getString("smsCheat");
 			// Toast.makeText(getApplicationContext(), "OMFG: " + gameType + "|"
 			// + snooze, Toast.LENGTH_SHORT).show();
 		}
@@ -23,6 +25,7 @@ public class SnoozeServiceTwo extends Service {
 		dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		dialogIntent.putExtra("gameType", gameType);
 		dialogIntent.putExtra("snooze", snoozeDuration);
+		dialogIntent.putExtra("sms", s);
 		getApplication().startActivity(dialogIntent);
 	}
 

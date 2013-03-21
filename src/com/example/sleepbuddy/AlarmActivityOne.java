@@ -24,6 +24,7 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 	private MediaPlayer mp;
 	private int gameType;
 	private int snoozeDuration;
+	private String smsCheat;
 	private Bundle b;
 
 	@Override
@@ -36,6 +37,7 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 		if (b != null) {
 			gameType = b.getInt("gameType");
 			snoozeDuration = b.getInt("snooze");
+			smsCheat = b.getString("sms");
 		}
 
 		mp = AlarmActivity.getMediaPlayer();
@@ -106,6 +108,7 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 		Intent intent = new Intent(AlarmActivityOne.this, SnoozeServiceTwo.class);
 		intent.putExtra("gameType", gameType);
 		intent.putExtra("snooze", snoozeDuration);
+		intent.putExtra("smsCheat", smsCheat);
 		PendingIntent pendingIntent = PendingIntent.getService(AlarmActivityOne.this, 0, intent, 0);
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
