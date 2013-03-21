@@ -96,18 +96,21 @@ public class AlarmActivity extends Activity {
 
 	private void displaySelectedGame(int gameType) {
 		Intent intent;
+		if (gameType == 0) {
+			gameType = (int) (Math.floor(Math.random() * 3) + 1);
+		}
 		switch (gameType) {
-		case 0:
+		case 1:
 			intent = new Intent(this, MathSumActivity.class);
 			intent.putExtra("level", 0);
 			startActivityForResult(intent, RESULT_MATH_SUM);
 			break;
-		case 1:
+		case 2:
 			intent = new Intent(this, StringMatchActivity.class);
 			intent.putExtra("level", 0);
 			startActivityForResult(intent, RESULT_STRING_MATCH);
 			break;
-		case 2:
+		case 3:
 			intent = new Intent(this, ShakerActivity.class);
 			intent.putExtra("level", 0);
 			startActivityForResult(intent, RESULT_SHAKER);
