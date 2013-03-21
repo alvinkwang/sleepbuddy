@@ -13,7 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ShakerActivity extends Activity implements SensorEventListener {
-	private static final int[] difficulty = { 30, 40, 50 };
+	private int level;
+	private static final int[] difficulty = { 30, 50, 75, 120 };
 	private int targetShakes = 0;
 	private int shakeCounter = 0;
 	private TextView shakeCount;
@@ -30,14 +31,22 @@ public class ShakerActivity extends Activity implements SensorEventListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shaker);
+		
+		// Extract game level
+		Bundle b = this.getIntent().getExtras();
+		if (b != null) {
+			level = b.getInt("level");
+		}
+		
+		//Setup for shaker
 		mInitialized = false;
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
 		TextView targetShakesText = (TextView) findViewById(R.id.targetShakes);
-		targetShakesText.setText(difficulty[0] + " shakes");
-		targetShakes = difficulty[0];
+		targetShakesText.setText(difficulty[level] + " shakes");
+		targetShakes = difficulty[level];
 		shakeCount = (TextView) findViewById(R.id.shakeCounter);
 		shakeCount.setText(Integer.toString(shakeCounter) + " shakes");
 	}

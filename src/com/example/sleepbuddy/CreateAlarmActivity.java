@@ -112,8 +112,6 @@ public class CreateAlarmActivity extends ListActivity {
 				Intent intent = new Intent(CreateAlarmActivity.this, AlarmService.class);
 				intent.putExtra("gameType", gameTypeSelected);
 				intent.putExtra("snooze", getSnoozeDurationInSeconds());
-//				Toast.makeText(getApplicationContext(),
-//						"G+S: " + gameTypeSelected + "|" + getSnoozeDurationInSeconds(), Toast.LENGTH_SHORT).show();
 				PendingIntent pendingIntent = PendingIntent.getService(CreateAlarmActivity.this, 0, intent, 0);
 
 				AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -191,7 +189,6 @@ public class CreateAlarmActivity extends ListActivity {
 		builder.setSingleChoiceItems(REPEAT, repeatSelected, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int index) {
 				repeatSelected = index;
-				Toast.makeText(getApplicationContext(), REPEAT[index], Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -218,7 +215,6 @@ public class CreateAlarmActivity extends ListActivity {
 		builder.setSingleChoiceItems(SNOOZE_DURATION, snoozeDurationSelected, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int index) {
 				snoozeDurationSelected = index;
-				Toast.makeText(getApplicationContext(), SNOOZE_DURATION[index], Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -245,7 +241,6 @@ public class CreateAlarmActivity extends ListActivity {
 		builder.setSingleChoiceItems(GAME_TYPE, gameTypeSelected, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int index) {
 				gameTypeSelected = index;
-				Toast.makeText(getApplicationContext(), GAME_TYPE[index], Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -275,14 +270,12 @@ public class CreateAlarmActivity extends ListActivity {
 				selectedBuddies = tempBuddyList;
 				selectedBuddiesBoolean = tempBuddySelected;
 				// adapter.notifyDataSetChanged();
-//				Toast.makeText(getApplicationContext(), "Save", Toast.LENGTH_SHORT).show();
 				updateList(3, getBuddiesNames(selectedBuddies));
 				adapter.notifyDataSetChanged();
 			}
 		});
 		builder.setPositiveButton(R.string.dialog_button_cancel, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
-				Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_SHORT).show();
 			}
 		});
 		builder.setMultiChoiceItems(BUDDY_LIST, selectedBuddiesBoolean,
