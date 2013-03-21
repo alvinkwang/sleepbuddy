@@ -16,16 +16,19 @@ public class AlarmService extends Service {
 	public void onStart(Intent intent, int startId) {
 		int gameType = 0;
 		int snoozeDuration = 0;
+		String s = "";
 		Bundle b = intent.getExtras();
 		if (b != null) {
 			gameType = b.getInt("gameType");
 			snoozeDuration = b.getInt("snooze");
+			s = b.getString("smsCheat");
 		}
 		
 		Intent dialogIntent = new Intent(getBaseContext(), AlarmActivity.class);
 		dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		dialogIntent.putExtra("game", gameType);
 		dialogIntent.putExtra("snooze", snoozeDuration);
+		dialogIntent.putExtra("sms", s);
 		getApplication().startActivity(dialogIntent);
 		
 	}

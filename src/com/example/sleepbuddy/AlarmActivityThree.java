@@ -23,8 +23,13 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 	private static final int RESULT_MATH_SUM = 1;
 	private static final int RESULT_STRING_MATCH = 2;
 	private static final int RESULT_SHAKER = 3;
+	static final String[] CONTACT_LIST = { "91110021", "96797873", "86131486", "92383266", "91110021" };
 	private MediaPlayer mp;
 	private int gameType;
+
+	private String smsCheat;
+	private int count;
+	private String values;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,7 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 		Bundle b = this.getIntent().getExtras();
 		if (b != null) {
 			gameType = b.getInt("gameType");
+			smsCheat = b.getString("sms");
 			// Toast.makeText(getApplicationContext(), "AlarmActivityThree" +
 			// gameType + "|0", Toast.LENGTH_SHORT).show();
 		}
@@ -80,13 +86,35 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 
 	private void sendSMS() {
 
-		SmsManager sm = SmsManager.getDefault();
-		String contactNum = "91110021";
 		String msg = "My dear buddy! Call me to wake me up!";
-		sm.sendTextMessage(contactNum, null, msg, null, null);
+		
+		SmsManager sm = SmsManager.getDefault();
+		processSMSCheat();
+
+		int idx = -1;
+		for (int i = 0; i < count; i++) {
+			if (values.length() > 1) {
+				idx = Integer.parseInt(values.substring(1));
+				values = values.substring(1, values.length() - 1);
+			} else {
+				idx = Integer.parseInt(values);
+			}
+			
+			sm.sendTextMessage(CONTACT_LIST[idx], null, msg, null, null);
+		}
+
 		Toast.makeText(getApplicationContext(), "SMS Sent!", Toast.LENGTH_SHORT).show();
 
 		createSMSSentDialog();
+	}
+
+	private void processSMSCheat() {
+		if (smsCheat.equals("0")) {
+			// do nth
+		} else if (smsCheat.length() >= 2) {
+			count = Integer.parseInt(smsCheat.substring(1));
+			values = smsCheat.substring(1, smsCheat.length() - 1);
+		}
 	}
 
 	private void createSMSSentDialog() {

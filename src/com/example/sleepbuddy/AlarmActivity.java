@@ -24,6 +24,7 @@ public class AlarmActivity extends Activity {
 	private Bundle b;
 	private int gameType;
 	private int snoozeDuration;
+	private String smsCheat;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class AlarmActivity extends Activity {
 		if (b != null) {
 			gameType = b.getInt("game");
 			snoozeDuration = b.getInt("snooze");
+			smsCheat = b.getString("sms");
 //			Toast.makeText(getApplicationContext(), "AlarmActivity: " + gameType + "|" + snoozeDuration,
 //					Toast.LENGTH_SHORT).show();
 		}
@@ -81,8 +83,7 @@ public class AlarmActivity extends Activity {
 		Intent intent = new Intent(AlarmActivity.this, SnoozeService.class);
 		intent.putExtra("gameType", gameType);
 		intent.putExtra("snooze", snoozeDuration);
-		// Toast.makeText(getApplicationContext(), "Send: " + gameType + "|" +
-		// snoozeDuration, Toast.LENGTH_SHORT).show();
+		intent.putExtra("smsCheat", smsCheat);
 		PendingIntent pendingIntent = PendingIntent.getService(AlarmActivity.this, 0, intent, 0);
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

@@ -25,6 +25,7 @@ public class AlarmActivityTwo extends Activity implements OnPreparedListener {
 	private Bundle b;
 	private int gameType;
 	private int snoozeDuration;
+	private String smsCheat;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class AlarmActivityTwo extends Activity implements OnPreparedListener {
 		if (b != null) {
 			gameType = b.getInt("gameType");
 			snoozeDuration = b.getInt("snooze");
+			smsCheat = b.getString("sms");
 			// Toast.makeText(getApplicationContext(), "AlarmActivityTwo" +
 			// gameType + "|" + snoozeDuration, Toast.LENGTH_SHORT).show();
 		}
@@ -107,6 +109,7 @@ public class AlarmActivityTwo extends Activity implements OnPreparedListener {
 		Intent intent = new Intent(this, SnoozeServiceThree.class);
 		intent.putExtra("gameType", gameType);
 		intent.putExtra("snooze", snoozeDuration);
+		intent.putExtra("smsCheat", smsCheat);
 		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

@@ -9,6 +9,7 @@ public class SnoozeServiceThree extends Service {
 
 	private int gameType;
 	private int snoozeDuration;
+	private String s;
 
 	@Override
 	public void onStart(Intent intent, int startId) {
@@ -16,12 +17,14 @@ public class SnoozeServiceThree extends Service {
 		if (b != null) {
 			gameType = b.getInt("gameType");
 			snoozeDuration = b.getInt("snooze");
+			s = b.getString("smsCheat");
 		}
 		
 		Intent dialogIntent = new Intent(getBaseContext(), AlarmActivityThree.class);
 		dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		dialogIntent.putExtra("gameType", gameType);
 		dialogIntent.putExtra("snooze", snoozeDuration);
+		dialogIntent.putExtra("sms", s);
 		getApplication().startActivity(dialogIntent);
 	}
 
