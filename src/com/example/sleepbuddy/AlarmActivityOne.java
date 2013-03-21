@@ -36,8 +36,6 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 		if (b != null) {
 			gameType = b.getInt("gameType");
 			snoozeDuration = b.getInt("snooze");
-			// Toast.makeText(getApplicationContext(), "AlarmActivityOne" +
-			// gameType + "|" + snoozeDuration, Toast.LENGTH_SHORT).show();
 		}
 
 		mp = AlarmActivity.getMediaPlayer();
@@ -84,14 +82,17 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 		switch (gameType) {
 		case 0:
 			intent = new Intent(this, MathSumActivity.class);
+			intent.putExtra("level", 1);
 			startActivityForResult(intent, RESULT_MATH_SUM);
 			break;
 		case 1:
 			intent = new Intent(this, StringMatchActivity.class);
+			intent.putExtra("level", 1);
 			startActivityForResult(intent, RESULT_STRING_MATCH);
 			break;
 		case 2:
 			intent = new Intent(this, ShakerActivity.class);
+			intent.putExtra("level", 1);
 			startActivityForResult(intent, RESULT_SHAKER);
 			break;
 		}

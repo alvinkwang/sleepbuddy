@@ -1,5 +1,7 @@
 package com.example.sleepbuddy;
 
+import java.util.Random;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -16,13 +18,20 @@ public class MathSumActivity extends Activity {
 	private int solution;
 	private int userAnswer;
 	private EditText solutionField;
+	private int level;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_math_sum);
 
-		generateMathSum(0);
+		// Extract game level
+		Bundle b = this.getIntent().getExtras();
+		if (b != null) {
+			level = b.getInt("level");
+		}
+
+		generateMathSum(level);
 		TextView qnField = (TextView) findViewById(R.id.mathSum);
 		qnField.setText(displayQn);
 		solutionField = (EditText) findViewById(R.id.mathSolution);
@@ -45,27 +54,42 @@ public class MathSumActivity extends Activity {
 	}
 
 	private void generateMathSum(int difficulty) {
+		Random r = new Random();
 		int x = 1;
 		int y = 1;
+		int a = 1;
+		int b = 1;
+		int low = 1;
+		int high = 1;
 		switch (difficulty) {
 		case 0:
 			x = 10;
 			y = 10;
+			a = (int) ((Math.random() * x) + 1);
+			b = (int) ((Math.random() * y) + 1);
 			break;
 		case 1:
-			x = 10;
-			y = 15;
+			low = 5;
+			high = 12;
+			a = r.nextInt(high - low) + low;
+			b = r.nextInt(high - low) + low;
 			break;
 		case 2:
-			x = 15;
-			y = 15;
+			low = 10;
+			high = 15;
+			a = r.nextInt(high - low) + low;
+			b = r.nextInt(high - low) + low;
+			break;
+		case 3:
+			low = 12;
+			high = 15;
+			a = r.nextInt(high - low) + low;
+			b = r.nextInt(high - low) + low;
 			break;
 		default:
 			break;
 		}
 
-		int a = (int) ((Math.random() * x) + 1);
-		int b = (int) ((Math.random() * y) + 1);
 		solution = a * b;
 		displayQn = a + " * " + b + " :";
 	}

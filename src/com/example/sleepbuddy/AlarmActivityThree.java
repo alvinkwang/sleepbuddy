@@ -82,7 +82,7 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 
 		SmsManager sm = SmsManager.getDefault();
 		String contactNum = "91110021";
-		String msg = "Alvin has snoozed 3 times!";
+		String msg = "My dear buddy! Call me to wake me up!";
 		sm.sendTextMessage(contactNum, null, msg, null, null);
 		Toast.makeText(getApplicationContext(), "SMS Sent!", Toast.LENGTH_SHORT).show();
 
@@ -113,14 +113,17 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 		switch (gameType) {
 		case 0:
 			intent = new Intent(this, MathSumActivity.class);
+			intent.putExtra("level", 3);
 			startActivityForResult(intent, RESULT_MATH_SUM);
 			break;
 		case 1:
 			intent = new Intent(this, StringMatchActivity.class);
+			intent.putExtra("level", 3);
 			startActivityForResult(intent, RESULT_STRING_MATCH);
 			break;
 		case 2:
 			intent = new Intent(this, ShakerActivity.class);
+			intent.putExtra("level", 3);
 			startActivityForResult(intent, RESULT_SHAKER);
 			break;
 		}

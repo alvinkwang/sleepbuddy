@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.Toast;
 
 public class AlarmActivity extends Activity {
 
@@ -100,15 +99,17 @@ public class AlarmActivity extends Activity {
 		switch (gameType) {
 		case 0:
 			intent = new Intent(this, MathSumActivity.class);
+			intent.putExtra("level", 0);
 			startActivityForResult(intent, RESULT_MATH_SUM);
-//			Toast.makeText(getApplicationContext(), "s1", Toast.LENGTH_SHORT).show();
 			break;
 		case 1:
 			intent = new Intent(this, StringMatchActivity.class);
+			intent.putExtra("level", 0);
 			startActivityForResult(intent, RESULT_STRING_MATCH);
 			break;
 		case 2:
 			intent = new Intent(this, ShakerActivity.class);
+			intent.putExtra("level", 0);
 			startActivityForResult(intent, RESULT_SHAKER);
 			break;
 		}

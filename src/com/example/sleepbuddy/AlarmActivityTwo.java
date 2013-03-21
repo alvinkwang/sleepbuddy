@@ -86,14 +86,17 @@ public class AlarmActivityTwo extends Activity implements OnPreparedListener {
 		switch (gameType) {
 		case 0:
 			intent = new Intent(this, MathSumActivity.class);
+			intent.putExtra("level", 2);
 			startActivityForResult(intent, RESULT_MATH_SUM);
 			break;
 		case 1:
 			intent = new Intent(this, StringMatchActivity.class);
+			intent.putExtra("level", 2);
 			startActivityForResult(intent, RESULT_STRING_MATCH);
 			break;
 		case 2:
 			intent = new Intent(this, ShakerActivity.class);
+			intent.putExtra("level", 2);
 			startActivityForResult(intent, RESULT_SHAKER);
 			break;
 		}
