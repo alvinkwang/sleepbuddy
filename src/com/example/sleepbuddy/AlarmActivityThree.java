@@ -41,8 +41,8 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 		if (b != null) {
 			gameType = b.getInt("gameType");
 			smsCheat = b.getString("sms");
-			// Toast.makeText(getApplicationContext(), "AlarmActivityThree" +
-			// gameType + "|0", Toast.LENGTH_SHORT).show();
+			 Toast.makeText(getApplicationContext(), "AlarmActivityThree" +
+			 smsCheat, Toast.LENGTH_SHORT).show();
 		}
 
 		mp = AlarmActivity.getMediaPlayer();
@@ -85,7 +85,6 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 	}
 
 	private void sendSMS() {
-
 		String msg = "My dear buddy! Call me to wake me up!";
 		
 		SmsManager sm = SmsManager.getDefault();
@@ -94,8 +93,8 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 		int idx = -1;
 		for (int i = 0; i < count; i++) {
 			if (values.length() > 1) {
-				idx = Integer.parseInt(values.substring(1));
-				values = values.substring(1, values.length() - 1);
+				idx = Integer.parseInt(values.substring(0,1));
+				values = values.substring(1, values.length());
 			} else {
 				idx = Integer.parseInt(values);
 			}
@@ -112,8 +111,11 @@ public class AlarmActivityThree extends Activity implements OnPreparedListener {
 		if (smsCheat.equals("0")) {
 			// do nth
 		} else if (smsCheat.length() >= 2) {
-			count = Integer.parseInt(smsCheat.substring(1));
-			values = smsCheat.substring(1, smsCheat.length() - 1);
+			String s = smsCheat.substring(0,1);
+			String t = smsCheat.substring(1, smsCheat.length());
+			count = Integer.parseInt(s);
+			values = t;
+//			Toast.makeText(getApplicationContext(), s+ " | " + t, Toast.LENGTH_SHORT).show();
 		}
 	}
 

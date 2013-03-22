@@ -38,6 +38,7 @@ public class AlarmActivityOne extends Activity implements OnPreparedListener {
 			gameType = b.getInt("gameType");
 			snoozeDuration = b.getInt("snooze");
 			smsCheat = b.getString("sms");
+//			Toast.makeText(getApplicationContext(), "Cheat: " + smsCheat, Toast.LENGTH_SHORT).show();
 		}
 
 		mp = AlarmActivity.getMediaPlayer();

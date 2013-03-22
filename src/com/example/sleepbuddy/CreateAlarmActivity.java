@@ -126,6 +126,9 @@ public class CreateAlarmActivity extends ListActivity {
 				Alarm alarm = new Alarm(hour, min, REPEAT[repeatSelected], SNOOZE_DURATION[snoozeDurationSelected],
 						GAME_TYPE[gameTypeSelected], BUDDY_LIST);
 				MainActivity.getAlarmList().add(alarm);
+				
+				//reset variables
+				smsBuddyCheat = "0";
 
 				finish();
 			}
