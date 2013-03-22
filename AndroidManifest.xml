@@ -73,6 +73,10 @@
             android:name="com.example.sleepbuddy.ShakerActivity"
             android:label="@string/title_activity_shaker" >
         </activity>
+        <activity
+            android:name="com.example.sleepbuddy.SendNotificationSMS"
+            android:label="@string/title_activity_send_notification_sms" >
+        </activity>
     </application>
 
 </manifest>

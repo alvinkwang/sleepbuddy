@@ -17,12 +17,20 @@ import android.view.Menu;
 public class AwakeConfirmationActivity extends Activity {
 
 	private static AlertDialog dialog;
-
+	private Bundle b;
+	private String smsCheat;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_awake_confirmation);
 
+		// Extract values from Bundle
+		b = this.getIntent().getExtras();
+		if (b != null) {
+			smsCheat = b.getString("sms");
+		}
+		
 		displayAwakeConfirmationDialog();
 	}
 
@@ -60,6 +68,7 @@ public class AwakeConfirmationActivity extends Activity {
 
 	private void checkIfUserAwake() {
 		Intent intent = new Intent(this, DetectUserAwakeService.class);
+		intent.putExtra("smsCheat", smsCheat);
 		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -70,5 +79,6 @@ public class AwakeConfirmationActivity extends Activity {
 		calendar.add(Calendar.SECOND, MainActivity.TEST_IS_USER_AWAKE_DURATION);
 		alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
+//		finish();
 	}
 }

@@ -148,6 +148,7 @@ public class AlarmActivity extends Activity {
 
 	private void startAwakeNotificationService() {
 		Intent intent = new Intent(this, AwakeNotificationService.class);
+		intent.putExtra("smsCheat", smsCheat);
 		PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent, 0);
 
 		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

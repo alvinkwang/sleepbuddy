@@ -35,5 +35,6 @@
     <string name="title_activity_alarm_activity_three">AlarmActivityThree</string>
     <string name="title_activity_awake_confirmation">AwakeConfirmationActivity</string>
     <string name="title_activity_shaker">ShakerActivity</string>
+    <string name="title_activity_send_notification_sms">SendNotificationSMS</string>
 
 </resources>
